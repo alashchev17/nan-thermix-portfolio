@@ -89,17 +89,22 @@ function initCellAnimate() {
   } else {
     // Mobile
     cellBullets[0].classList.add('active')
+    gsap.set(cellSlides[0], {
+      opacity: 1,
+      ease: 'power3.out',
+    })
     document.querySelector(
       '.cell__slides'
     ).style = `height: ${cellSlides[0].offsetHeight}px`
+    // Handle click on bullets
     cellBullets.forEach((item, index) => {
       item.addEventListener('click', () => {
         if (item.classList.contains('active')) {
           return
         }
-        document.querySelector(
-          '.cell__slides'
-        ).style = `height: ${cellSlides[index].offsetHeight}px`
+        document.querySelector('.cell__slides').style = `height: ${
+          cellSlides[index].offsetHeight + 1
+        }px`
         cellBullets.forEach((item) => item.classList.remove('active'))
         cellSlides.forEach((item) => {
           gsap.to(item, {
@@ -139,6 +144,119 @@ function initCellAnimate() {
         }
       })
     })
+    // document.querySelector('.cell__slides').addEventListener('swipe-right')
+    document
+      .querySelector('.cell__slides')
+      .addEventListener('touchstart', handleTouchStart, false)
+    document
+      .querySelector('.cell__slides')
+      .addEventListener('touchmove', handleTouchMove, false)
+
+    var xDown = null
+    var yDown = null
+
+    function swipeSlide(direction) {
+      const currentSlide = document.querySelector('.cell__slides-item.active')
+      const currentBullet = document.querySelector('.cell__bullets-item.active')
+      let nextSlide
+      let nextBullet
+      if (direction === 'right') {
+        // debugger
+        nextSlide = currentSlide.nextElementSibling ?? null
+        nextBullet = currentBullet.nextElementSibling ?? null
+      } else {
+        nextSlide = currentSlide.previousElementSibling ?? null
+        nextBullet = currentBullet.previousElementSibling ?? null
+      }
+
+      if (nextSlide && nextBullet) {
+        document.querySelector('.cell__slides').style = `height: ${
+          nextSlide.offsetHeight + 1
+        }px`
+
+        currentSlide.classList.remove('active')
+        gsap.to(currentSlide, {
+          opacity: 0,
+          ease: 'power3.out',
+        })
+        currentBullet.classList.remove('active')
+        setTimeout(() => {
+          nextSlide.classList.add('active')
+          gsap.fromTo(
+            nextSlide,
+            {
+              opacity: 0,
+              y: 20,
+            },
+            {
+              opacity: 1,
+              y: 0,
+              ease: 'power3.out',
+              delay: 0.5,
+            }
+          )
+          if (nextBullet.dataset.number === '4') {
+            gsap.fromTo(
+              '.cell__button',
+              {
+                opacity: 0,
+              },
+              {
+                opacity: 1,
+                ease: 'power3.out',
+                delay: 1,
+              }
+            )
+          }
+          nextBullet.classList.add('active')
+        }, 300)
+      }
+      return false
+    }
+
+    function getTouches(evt) {
+      return evt.touches
+    }
+
+    function handleTouchStart(evt) {
+      const firstTouch = getTouches(evt)[0]
+      xDown = firstTouch.clientX
+      yDown = firstTouch.clientY
+    }
+
+    function handleTouchMove(evt) {
+      if (!xDown || !yDown) {
+        return
+      }
+
+      var xUp = evt.touches[0].clientX
+      var yUp = evt.touches[0].clientY
+
+      var xDiff = xDown - xUp
+      var yDiff = yDown - yUp
+
+      if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        /*most significant*/
+        if (xDiff > 0) {
+          /* right swipe */
+          console.log('swipe right')
+          swipeSlide('right')
+        } else {
+          /* left swipe */
+          console.log('swipe left')
+          swipeSlide('left')
+        }
+      } else {
+        if (yDiff > 0) {
+          /* down swipe */
+        } else {
+          /* up swipe */
+        }
+      }
+      /* reset values */
+      xDown = null
+      yDown = null
+    }
   }
 }
 

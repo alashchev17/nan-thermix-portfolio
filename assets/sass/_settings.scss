@@ -44,6 +44,10 @@ body {
   font-family: 'Aileron', sans-serif;
   font-weight: 400;
   background-color: #f2f2f2;
+  &.overflow {
+    overflow-y: hidden;
+    height: 100vh;
+  }
 }
 
 .site-container {
@@ -67,7 +71,6 @@ body {
   }
   &.overflow {
     overflow-y: hidden;
-    height: 100vh;
     &::before {
       opacity: 1;
       visibility: visible;
