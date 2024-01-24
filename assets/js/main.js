@@ -80,7 +80,6 @@ function initCellAnimate() {
     ScrollTrigger.create({
       animation: cellTl,
       trigger: '.cell',
-      markers: true,
       onEnter: () => {
         if (cellSlideCounter !== 1) {
           return
