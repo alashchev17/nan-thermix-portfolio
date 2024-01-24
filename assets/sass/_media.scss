@@ -71,6 +71,53 @@ $x-small: 420px;
       left: -65%;
     }
   }
+  .slogan {
+    padding: 0;
+    &__container {
+      padding: 0 16px;
+    }
+    &__title {
+      display: flex;
+      font-size: 75px;
+      flex-direction: column;
+      letter-spacing: -2.4px;
+    }
+    &__biology {
+      $border: 3px;
+      border: $border solid transparent;
+      line-height: 100%;
+      padding: 0 16px;
+      &::before {
+        margin: -$border;
+      }
+    }
+    &__item {
+      &--left {
+        text-align: left;
+      }
+      &--right {
+        text-align: right;
+      }
+    }
+  }
+  .cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__image {
+      position: static;
+      max-width: 100%;
+      width: 100%;
+    }
+    &__wrapper {
+      &-counter {
+        display: inline-block;
+      }
+    }
+    &__content {
+      max-width: 100%;
+    }
+  }
 }
 
 @media screen and (max-width: $small) {
@@ -81,6 +128,15 @@ $x-small: 420px;
     line-height: 95%; /* 43.7px */
     letter-spacing: -1.84px;
     text-transform: capitalize;
+  }
+  .title-h2 {
+  }
+  .title-h3 {
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 115%; /* 29.9px */
+    letter-spacing: -0.78px;
   }
   .descr {
     font-size: 16px;
@@ -100,6 +156,36 @@ $x-small: 420px;
     }
     &__scroll {
       display: none;
+    }
+  }
+  .slogan {
+    &__title {
+      font-size: 46px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 100%; /* 46px */
+      letter-spacing: -1.84px;
+    }
+    &__biology {
+      $border: 2px;
+      border: $border solid transparent;
+      line-height: 90%;
+      padding: 0 16px;
+      &::before {
+        margin: -$border;
+      }
+    }
+  }
+  .cell {
+    padding-top: unset;
+    padding-bottom: 90px;
+    &__wrapper {
+      margin-bottom: 16px;
+    }
+    &__slides {
+      &-item {
+        gap: 16px;
+      }
     }
   }
 }

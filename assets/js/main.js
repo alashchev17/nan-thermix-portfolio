@@ -1,5 +1,19 @@
 gsap.registerPlugin(ScrollTrigger)
 
+const lenis = new Lenis()
+
+lenis.on('scroll', (e) => {
+  console.log(e)
+})
+
+lenis.on('scroll', ScrollTrigger.update)
+
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000)
+})
+
+gsap.ticker.lagSmoothing(0)
+
 // Header Variables
 const siteContainer = document.querySelector('.site-container')
 const header = document.querySelector('.header')
@@ -13,26 +27,32 @@ const cellSlidesCount = 5
 let cellSlideCounter = 1
 
 function initCellAnimate() {
-  if (window.innerWidth >= 768) {
+  if (window.innerWidth > 768) {
     let cellTl = gsap.timeline({
       defaults: { duration: 1 },
       scrollTrigger: {
         trigger: '.cell',
         start: 'top 15%',
-        end: '+=7000',
-        markers: true,
-        scrub: true,
+        end: '+=3500',
+        scrub: 1.2,
         pin: true,
         onUpdate: ({ progress }) => {
-          console.log(Math.ceil((progress * 100) / 20 - 1))
+          let currentProgress = Math.ceil((progress * 100) / 20 - 1)
+          console.log(currentProgress)
+          document.querySelector(
+            '.cell__slides'
+          ).style = `height: ${cellSlides[3].offsetHeight}px`
           cellBullets.forEach((item) => {
             item.classList.remove('active')
           })
-          cellBullets[Math.ceil((progress * 100) / 20 - 1)].classList.add(
-            'active'
-          )
+          cellBullets[currentProgress].classList.add('active')
         },
       },
+    })
+
+    cellTl.from('.cell__wrapper', {
+      x: 100,
+      opacity: 0,
     })
 
     cellSlides.forEach((item, index) => {
@@ -105,6 +125,10 @@ function initCellAnimate() {
         document.querySelector('.cell__slides').style = `height: ${
           cellSlides[index].offsetHeight + 1
         }px`
+        cellSlideCounter = index + 1
+        document.querySelector('.cell__wrapper-current').textContent =
+          cellSlideCounter
+
         cellBullets.forEach((item) => item.classList.remove('active'))
         cellSlides.forEach((item) => {
           gsap.to(item, {
@@ -161,7 +185,6 @@ function initCellAnimate() {
       let nextSlide
       let nextBullet
       if (direction === 'right') {
-        // debugger
         nextSlide = currentSlide.nextElementSibling ?? null
         nextBullet = currentBullet.nextElementSibling ?? null
       } else {
@@ -170,6 +193,9 @@ function initCellAnimate() {
       }
 
       if (nextSlide && nextBullet) {
+        cellSlideCounter = Number(nextBullet.dataset.number) + 1
+        document.querySelector('.cell__wrapper-current').textContent =
+          cellSlideCounter
         document.querySelector('.cell__slides').style = `height: ${
           nextSlide.offsetHeight + 1
         }px`
@@ -288,19 +314,22 @@ function fixHeader() {
   header.classList.add('fixed')
 }
 function sloganAnimate() {
-  let sloganTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.slogan',
-      start: 'bottom bottom',
-      end: 'bottom 30%',
-      scrub: true,
-    },
-  })
-  sloganTl.to('.slogan__title', {
-    x: () =>
-      document.documentElement.offsetWidth -
-      document.querySelector('.slogan__title').scrollWidth,
-  })
+  if (window.innerWidth > 768) {
+    let sloganTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.slogan',
+        start: 'bottom bottom',
+        end: 'bottom 15%',
+        scrub: 1.2,
+      },
+    })
+    sloganTl.to('.slogan__title', {
+      x: () =>
+        document.documentElement.offsetWidth -
+        document.querySelector('.slogan__title').scrollWidth,
+      ease: 'power3.inOut',
+    })
+  }
 }
 window.addEventListener('load', () => {
   fixHeader()
