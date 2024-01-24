@@ -13,37 +13,36 @@ const cellSlidesCount = 5
 let cellSlideCounter = 1
 
 function initCellAnimate() {
-  let cellTl = gsap.timeline({ defaults: { duration: 1 } })
+  if (window.innerWidth >= 768) {
+    let cellTl = gsap.timeline({
+      defaults: { duration: 1 },
+      scrollTrigger: {
+        trigger: '.cell',
+        start: 'top 15%',
+        end: '+=7000',
+        markers: true,
+        scrub: true,
+        pin: true,
+        onUpdate: ({ progress }) => {
+          console.log(Math.ceil((progress * 100) / 20 - 1))
+          cellBullets.forEach((item) => {
+            item.classList.remove('active')
+          })
+          cellBullets[Math.ceil((progress * 100) / 20 - 1)].classList.add(
+            'active'
+          )
+        },
+      },
+    })
 
-  function showNextSlide() {
-    const currentCellSlide = document.querySelector('.cell__slides-item.active')
-    const currentCellBullet = document.querySelector(
-      '.cell__bullets-item.active'
-    )
-
-    let nextCellSlide
-    let nextCellBullet
-
-    nextCellSlide = currentCellSlide.nextElementSibling
-    nextCellBullet = currentCellBullet.nextElementSibling
-
-    if (nextCellSlide && nextCellBullet) {
-      cellSlideCounter++
-      // Slides
-      setTimeout(() => {
+    cellSlides.forEach((item, index) => {
+      document.querySelector(
+        '.cell__slides'
+      ).style = `height: ${item.offsetHeight}px`
+      if (index == 4) {
         cellTl
           .fromTo(
-            currentCellSlide,
-            {
-              opacity: 1,
-            },
-            {
-              opacity: 0,
-              ease: 'power3.out',
-            }
-          )
-          .fromTo(
-            nextCellSlide,
+            item,
             {
               y: '100%',
               opacity: 0,
@@ -51,48 +50,56 @@ function initCellAnimate() {
             {
               y: 0,
               opacity: 1,
-              ease: 'back.out(1.2)',
-              delay: 1,
-              onComplete: () => showNextSlide(),
             },
             '<'
           )
-        currentCellSlide.classList.remove('active')
-        nextCellSlide.classList.add('active')
-
-        // Bullets
-        currentCellBullet.classList.remove('active')
-        nextCellBullet.classList.add('active')
-      }, 1500)
-    } else {
-      cellTl.to(
-        '.cell__button',
-        {
-          opacity: 1,
-          ease: 'power3.out',
-        },
-        '>50%'
-      )
-    }
-  }
-
-  if (window.innerWidth >= 768) {
-    ScrollTrigger.create({
-      animation: cellTl,
-      trigger: '.cell',
-      onEnter: () => {
-        if (cellSlideCounter !== 1) {
-          return
-        }
-        showNextSlide()
-      },
+          .fromTo(
+            '.cell__button',
+            {
+              opacity: 0,
+            },
+            {
+              opacity: 1,
+            },
+            '>'
+          )
+        return
+      }
+      cellTl
+        .fromTo(
+          item,
+          {
+            y: '100%',
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+          },
+          '<'
+        )
+        .to(
+          item,
+          {
+            opacity: 0,
+          },
+          '>'
+        )
     })
   } else {
+    // Mobile
+    cellBullets[0].classList.add('active')
+    document.querySelector(
+      '.cell__slides'
+    ).style = `height: ${cellSlides[0].offsetHeight}px`
     cellBullets.forEach((item, index) => {
       item.addEventListener('click', () => {
         if (item.classList.contains('active')) {
           return
         }
+        document.querySelector(
+          '.cell__slides'
+        ).style = `height: ${cellSlides[index].offsetHeight}px`
         cellBullets.forEach((item) => item.classList.remove('active'))
         cellSlides.forEach((item) => {
           gsap.to(item, {
@@ -118,12 +125,17 @@ function initCellAnimate() {
           }
         )
         if (item.dataset.number === '4') {
-          gsap.to('.cell__button', {
-            opacity: 1,
-            y: 0,
-            delay: 1,
-            ease: 'power3.out',
-          })
+          gsap.fromTo(
+            '.cell__button',
+            {
+              opacity: 0,
+            },
+            {
+              opacity: 1,
+              delay: 1,
+              ease: 'power3.out',
+            }
+          )
         }
       })
     })
