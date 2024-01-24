@@ -1,0 +1,18 @@
+// font-face
+@import './fonts';
+@import './normalize';
+@import './settings';
+// Components
+@import './components/logo';
+@import './components/button';
+@import './components/icon';
+@import './components/title';
+@import './components/descr';
+// Sections
+@import './sections/header';
+@import './sections/menu';
+@import './sections/hero';
+@import './sections/slogan';
+@import './sections/cell';
+// Media queries
+@import './media';

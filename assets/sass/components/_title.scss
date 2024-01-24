@@ -1,0 +1,28 @@
+.title {
+  color: var(--black);
+  &-h1 {
+    font-family: 'Aileron', sans-serif;
+    font-weight: 400;
+    font-size: 78px;
+    font-style: normal;
+    line-height: 95%; /* 74.1px */
+    letter-spacing: -3.51px;
+  }
+  &-h2 {
+    font-family: 'Aileron', sans-serif;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 95%; /* 60.8px */
+    letter-spacing: -2.56px;
+    text-transform: capitalize;
+  }
+  &-h3 {
+    font-family: 'Aileron', sans-serif;
+    font-size: 52px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 52px */
+    letter-spacing: -2.08px;
+  }
+}

@@ -1,0 +1,136 @@
+// Breakpoints
+$extra-extra-large: 1400px;
+$extra-large: 1024px;
+$large: 992px;
+$medium: 768px;
+$small: 576px;
+$x-small: 420px;
+
+@media screen and (max-width: $extra-extra-large) {
+  .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  .title-h1 {
+    font-size: 58px;
+  }
+}
+
+@media screen and (max-width: $extra-large) {
+  .site-container {
+    overflow-x: hidden;
+  }
+  .header {
+    &__nav {
+      display: none;
+    }
+    &__button {
+      display: none;
+    }
+    &__burger {
+      display: flex;
+    }
+  }
+  .menu {
+    display: flex;
+  }
+  .hero {
+    &__information {
+      max-width: 75%;
+    }
+    &__bottom {
+      flex-direction: column-reverse;
+      gap: 30px;
+    }
+  }
+}
+
+@media screen and (max-width: $medium) {
+  .header {
+    &__container {
+      padding: 10px 0;
+    }
+  }
+  .hero {
+    padding-top: calc(45px + 50px);
+    &__information {
+      max-width: 100%;
+      margin-bottom: 50%;
+    }
+    &__descr {
+      max-width: 100%;
+    }
+    &__links {
+      flex-direction: column;
+    }
+    &__intro {
+      max-width: unset;
+      width: 200%;
+      top: 80px;
+      right: unset;
+      left: -65%;
+    }
+  }
+}
+
+@media screen and (max-width: $small) {
+  .title-h1 {
+    font-size: 46px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 95%; /* 43.7px */
+    letter-spacing: -1.84px;
+    text-transform: capitalize;
+  }
+  .descr {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: 130%; /* 20.8px */
+    letter-spacing: -0.16px;
+  }
+  .hero {
+    &__links {
+      align-items: stretch;
+      max-width: 100%;
+      width: 100%;
+      &-item {
+        justify-content: space-between;
+      }
+    }
+    &__scroll {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: $x-small) {
+  .hero {
+    &__information {
+      margin-bottom: 32px;
+      gap: 250px;
+    }
+    &__links {
+      &-item {
+        padding: 10px;
+      }
+      &-title {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 110%; /* 19.8px */
+        letter-spacing: -0.54px;
+      }
+      &-subtitle {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 450;
+        line-height: 120%;
+        letter-spacing: -0.14px;
+      }
+    }
+    &__intro {
+      top: 15%;
+    }
+  }
+}

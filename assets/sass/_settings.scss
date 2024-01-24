@@ -1,0 +1,102 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --background: #f6f7f8;
+  --white: #ffffff;
+  --light-gray: #d6dbdf;
+  --semi-gray: #c2c2c2;
+  --gray: #6a6667;
+  --black: #161516;
+  --extra-light-blue: #9ecfff;
+  --light-blue: #4ab1f8;
+  --blue: #1987d2;
+  --green: #aae9e1;
+  --orange: #ff6d04;
+  --gradient-1: linear-gradient(90deg, var(--blue), var(--green));
+  --gradient-2: linear-gradient(90deg, #86ceff, #f0d7be);
+  --gradient-3: linear-gradient(
+    90deg,
+    #1987d2 -28.22%,
+    #40bbd6 27.97%,
+    #f0d7be 97.26%
+  );
+  --warm-gradient-1: linear-gradient(
+    86deg,
+    var(--orange) 3.26%,
+    #171276 94.46%
+  );
+  --warm-gradient-4: linear-gradient(
+    271deg,
+    #94bbdf 4.19%,
+    var(--orange) 92.61%
+  );
+}
+
+body {
+  font-family: 'Aileron', sans-serif;
+  font-weight: 400;
+  background-color: #f2f2f2;
+}
+
+.site-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(106, 102, 103, 85%);
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  }
+  &.overflow {
+    overflow-y: hidden;
+    height: 100vh;
+    &::before {
+      opacity: 1;
+      visibility: visible;
+      z-index: 50;
+    }
+  }
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

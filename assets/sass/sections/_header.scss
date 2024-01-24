@@ -1,0 +1,92 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 20;
+  transition: background-color 0.3s ease-in-out;
+  &.fixed {
+    background-color: var(--white);
+    backdrop-filter: unset;
+    -webkit-backdrop-filter: unset;
+  }
+  &__container {
+    padding: 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__nav {
+    &-button {
+      display: none;
+    }
+  }
+  &__burger {
+    display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 30px;
+    height: 12px;
+    &::before,
+    &::after {
+      content: '';
+      background-color: var(--black);
+      height: 3px;
+    }
+    &::before {
+      width: 100%;
+    }
+    &::after {
+      width: 50%;
+    }
+  }
+}
+
+.nav {
+  &__list {
+    display: flex;
+    gap: 50px;
+  }
+  &__close {
+    display: none;
+  }
+  &__item {
+    position: relative;
+    font-size: 14px;
+    font-weight: 600;
+    background: linear-gradient(271deg, var(--semi-gray), var(--semi-gray)),
+      var(--warm-gradient-4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 100% 100%, 0 100%;
+    background-position: 100% 100%, 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.1s ease-in-out;
+    &::before {
+      content: '';
+      position: absolute;
+      display: inline-block;
+      background-color: var(--orange);
+      left: -12px;
+      top: 50%;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(-50%);
+      transition: opacity 0.3s ease-in-out;
+    }
+    &:hover {
+      background-size: 0 100%, 100% 100%;
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+}
