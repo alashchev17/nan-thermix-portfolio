@@ -4,4 +4,12 @@
   font-weight: 450;
   line-height: 130%; /* 26px */
   letter-spacing: -0.2px;
+  &--large {
+    font-family: 'Aileron', sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 33px */
+    letter-spacing: -0.9px;
+  }
 }

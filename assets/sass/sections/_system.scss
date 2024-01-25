@@ -1,0 +1,136 @@
+.system {
+  padding: 160px 0 110px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 100px;
+  &__container {
+    display: flex;
+    align-items: stretch;
+  }
+  &__title {
+    max-width: 80%;
+  }
+  &__label {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 14px */
+    letter-spacing: 0.28px;
+    padding: 10px 14px;
+    text-transform: uppercase;
+    border-radius: 100px;
+    border: 1px solid #d2d2d2;
+  }
+  &__column {
+    &--left {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      max-width: calc(100% / 3);
+      width: 100%;
+    }
+    &--right {
+      max-width: calc(100% / 3 * 2);
+      width: 100%;
+    }
+  }
+  &__image {
+    position: absolute;
+    top: -80px;
+    left: -110px;
+    max-width: 510px;
+    height: auto;
+    object-fit: cover;
+  }
+  &__descr {
+    &-strong {
+      color: #d2d2d2;
+    }
+  }
+  &__row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    &--text {
+      margin-top: 40px;
+      gap: 55px;
+    }
+    &--information {
+      align-items: stretch;
+    }
+  }
+  &__text {
+    &--left {
+      max-width: 293px;
+    }
+  }
+  &__information {
+    &--right {
+      max-width: 220px;
+    }
+    &-title {
+      margin-bottom: 30px;
+    }
+    &-list {
+      $self: &;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      &:not(:last-child) {
+        margin-bottom: 90px;
+      }
+      /* General styles for list-items */
+      &-item {
+        display: flex;
+        align-items: center;
+        &::before {
+          content: '';
+          display: inline-block;
+          background-position: center center;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+      }
+      /* Dedicated styles */
+      &--required {
+        #{$self}-item {
+          gap: 15px;
+          &::before {
+            width: 24px;
+            height: 24px;
+            background-image: url('../images/required-list.svg');
+          }
+        }
+      }
+      &--optional {
+        #{$self}-item {
+          gap: 10px;
+          &::before {
+            width: 20px;
+            height: 20px;
+            background-image: url('../images/optional-list.svg');
+          }
+        }
+      }
+    }
+    &-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      padding: 30px;
+      background-color: #e8e8e8;
+      border-radius: 15px;
+      &-image {
+        width: 54px;
+        height: 56px;
+        svg {
+          fill: var(--orange);
+        }
+      }
+    }
+  }
+}

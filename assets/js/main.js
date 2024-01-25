@@ -34,8 +34,10 @@ function initCellAnimate() {
         scrub: 1.2,
         pin: true,
         onUpdate: ({ progress }) => {
-          let currentProgress = Math.ceil((progress * 100) / 20 - 1)
-          console.log(currentProgress)
+          let currentProgress =
+            Math.ceil((progress * 100) / 20 - 1) >= 0
+              ? Math.ceil((progress * 100) / 20 - 1)
+              : 0
           document.querySelector(
             '.cell__slides'
           ).style = `height: ${cellSlides[3].offsetHeight}px`
