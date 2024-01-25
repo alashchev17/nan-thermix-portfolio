@@ -70,7 +70,6 @@ $(document).ready(function () {
   // Cell section Variables
   const cellBullets = $('.cell__bullets-item')
   const cellSlides = $('.cell__slides-item')
-  const cellSlidesCount = 5
   let cellSlideCounter = 1
   let isCellSlideAnimating = false // only for mobile
 
@@ -400,8 +399,6 @@ $(document).ready(function () {
   } else {
     // Mobile animation
   }
-
-  // ScrollTrigger.create({})
 
   $(window).on('load', () => {
     fixHeader()
