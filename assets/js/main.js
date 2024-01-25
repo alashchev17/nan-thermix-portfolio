@@ -2,10 +2,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 const lenis = new Lenis()
 
-lenis.on('scroll', (e) => {
-  console.log(e)
-})
-
 lenis.on('scroll', ScrollTrigger.update)
 
 gsap.ticker.add((time) => {
@@ -25,6 +21,7 @@ const cellBullets = document.querySelectorAll('.cell__bullets-item')
 const cellSlides = document.querySelectorAll('.cell__slides-item')
 const cellSlidesCount = 5
 let cellSlideCounter = 1
+let isCellSlideAnimating = false // only for mobile
 
 function initCellAnimate() {
   if (window.innerWidth > 768) {
@@ -176,66 +173,78 @@ function initCellAnimate() {
       .querySelector('.cell__slides')
       .addEventListener('touchmove', handleTouchMove, false)
 
-    var xDown = null
-    var yDown = null
+    let xDown = null
+    let yDown = null
 
     function swipeSlide(direction) {
-      const currentSlide = document.querySelector('.cell__slides-item.active')
-      const currentBullet = document.querySelector('.cell__bullets-item.active')
-      let nextSlide
-      let nextBullet
-      if (direction === 'right') {
-        nextSlide = currentSlide.nextElementSibling ?? null
-        nextBullet = currentBullet.nextElementSibling ?? null
-      } else {
-        nextSlide = currentSlide.previousElementSibling ?? null
-        nextBullet = currentBullet.previousElementSibling ?? null
-      }
+      if (!isCellSlideAnimating) {
+        isCellSlideAnimating = true
+        const currentSlide = document.querySelector('.cell__slides-item.active')
+        const currentBullet = document.querySelector(
+          '.cell__bullets-item.active'
+        )
+        let nextSlide
+        let nextBullet
+        if (direction === 'right') {
+          nextSlide = currentSlide.nextElementSibling ?? null
+          nextBullet = currentBullet.nextElementSibling ?? null
+        } else {
+          nextSlide = currentSlide.previousElementSibling ?? null
+          nextBullet = currentBullet.previousElementSibling ?? null
+        }
 
-      if (nextSlide && nextBullet) {
-        cellSlideCounter = Number(nextBullet.dataset.number) + 1
-        document.querySelector('.cell__wrapper-current').textContent =
-          cellSlideCounter
-        document.querySelector('.cell__slides').style = `height: ${
-          nextSlide.offsetHeight + 1
-        }px`
+        if (nextSlide && nextBullet) {
+          cellSlideCounter = Number(nextBullet.dataset.number) + 1
+          document.querySelector('.cell__wrapper-current').textContent =
+            cellSlideCounter
+          document.querySelector('.cell__slides').style = `height: ${
+            nextSlide.offsetHeight + 1
+          }px`
 
-        currentSlide.classList.remove('active')
-        gsap.to(currentSlide, {
-          opacity: 0,
-          ease: 'power3.out',
-        })
-        currentBullet.classList.remove('active')
-        setTimeout(() => {
-          nextSlide.classList.add('active')
-          gsap.fromTo(
-            nextSlide,
-            {
-              opacity: 0,
-              y: 20,
-            },
-            {
-              opacity: 1,
-              y: 0,
-              ease: 'power3.out',
-              delay: 0.5,
-            }
-          )
-          if (nextBullet.dataset.number === '4') {
+          currentSlide.classList.remove('active')
+          gsap.to(currentSlide, {
+            opacity: 0,
+            ease: 'power3.out',
+          })
+          currentBullet.classList.remove('active')
+          setTimeout(() => {
+            nextSlide.classList.add('active')
             gsap.fromTo(
-              '.cell__button',
+              nextSlide,
               {
                 opacity: 0,
+                y: 20,
               },
               {
                 opacity: 1,
+                y: 0,
                 ease: 'power3.out',
-                delay: 1,
+                delay: 0.5,
+                onComplete: () => {
+                  isCellSlideAnimating = false
+                },
               }
             )
-          }
-          nextBullet.classList.add('active')
-        }, 300)
+            if (nextBullet.dataset.number === '4') {
+              gsap.fromTo(
+                '.cell__button',
+                {
+                  opacity: 0,
+                },
+                {
+                  opacity: 1,
+                  ease: 'power3.out',
+                  delay: 1,
+                  onComplete: () => {
+                    isCellSlideAnimating = false
+                  },
+                }
+              )
+            }
+            nextBullet.classList.add('active')
+          }, 300)
+        }
+        return false
       }
       return false
     }
@@ -255,21 +264,19 @@ function initCellAnimate() {
         return
       }
 
-      var xUp = evt.touches[0].clientX
-      var yUp = evt.touches[0].clientY
+      let xUp = evt.touches[0].clientX
+      let yUp = evt.touches[0].clientY
 
-      var xDiff = xDown - xUp
-      var yDiff = yDown - yUp
+      let xDiff = xDown - xUp
+      let yDiff = yDown - yUp
 
       if (Math.abs(xDiff) > Math.abs(yDiff)) {
         /*most significant*/
         if (xDiff > 0) {
           /* right swipe */
-          console.log('swipe right')
           swipeSlide('right')
         } else {
           /* left swipe */
-          console.log('swipe left')
           swipeSlide('left')
         }
       } else {
@@ -313,6 +320,9 @@ function fixHeader() {
   }
   header.classList.add('fixed')
 }
+
+// Slogan
+
 function sloganAnimate() {
   if (window.innerWidth > 768) {
     let sloganTl = gsap.timeline({

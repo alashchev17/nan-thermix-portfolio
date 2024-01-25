@@ -8,11 +8,14 @@
   right: 0;
   width: 80%;
   height: 100vh;
+  height: 100dvh;
+  // height: calc(var(--vh, 1vh) * 100);
   padding: 50px 27px;
   transform: translateX(100%);
   opacity: 0;
   background-color: var(--white);
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: height 0.3s ease-in-out, transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
   z-index: 100;
   &.active {
     transform: translateX(0);
