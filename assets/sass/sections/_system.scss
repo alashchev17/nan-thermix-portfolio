@@ -83,6 +83,7 @@
         align-items: center;
         &::before {
           content: '';
+          flex-shrink: 0;
           display: inline-block;
           background-position: center center;
           background-size: contain;
@@ -121,7 +122,8 @@
       border-radius: 15px;
       &-image {
         width: 54px;
-        height: 56px;
+        height: 48px;
+        flex-shrink: 0;
         svg {
           fill: var(--orange);
         }

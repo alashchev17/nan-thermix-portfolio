@@ -1,5 +1,6 @@
 // Breakpoints
 $extra-extra-large: 1400px;
+$medium-large: 1300px;
 $extra-large: 1024px;
 $large: 992px;
 $medium: 768px;
@@ -11,8 +12,92 @@ $x-small: 420px;
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
-  .title-h1 {
+  .title-h1,
+  .title-h2 {
     font-size: 58px;
+  }
+  .descr {
+    &--large {
+      font-size: 25px;
+    }
+  }
+  .text {
+    font-size: 16px;
+  }
+  .system {
+    &__title {
+      max-width: 100%;
+    }
+    &__container {
+      justify-content: space-between;
+    }
+    &__text {
+      &--left {
+        max-width: 40%;
+      }
+      &--right {
+        max-width: 55%;
+      }
+    }
+    &__row {
+      &--text {
+        gap: unset;
+        justify-content: space-between;
+      }
+    }
+    &__column {
+      &--left {
+        max-width: 25%;
+      }
+      &--right {
+        max-width: 70%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $medium-large) {
+  .system {
+    $self: &;
+    &__image {
+      position: static;
+      max-width: 100%;
+    }
+    &__row {
+      &--information {
+        flex-direction: column;
+        gap: 30px;
+      }
+    }
+    &__information {
+      &--right {
+        max-width: unset;
+      }
+      &-list {
+        &:not(:last-child) {
+          margin-bottom: 35px;
+        }
+      }
+      &-card {
+        max-width: 100%;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 16px;
+      }
+    }
+    // &__image {
+    //   display: none;
+    // }
+    &__container {
+      &:nth-child(2) {
+        #{$self}__column {
+          &--left {
+            justify-content: center;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -41,6 +126,38 @@ $x-small: 420px;
     &__bottom {
       flex-direction: column-reverse;
       gap: 30px;
+    }
+  }
+  .system {
+    $self: &;
+    gap: 50px;
+    &__container {
+      &:nth-child(1) {
+        flex-direction: column;
+        gap: 32px;
+        #{$self}__column {
+          &--left {
+            flex-direction: column-reverse;
+            gap: 32px;
+            max-width: 100%;
+          }
+          &--right {
+            max-width: 100%;
+            #{$self}__row {
+              &--text {
+                flex-direction: column;
+                gap: 16px;
+              }
+            }
+          }
+        }
+      }
+    }
+    &__text {
+      &--left,
+      &--right {
+        max-width: 100%;
+      }
     }
   }
 }
@@ -118,18 +235,34 @@ $x-small: 420px;
       max-width: 100%;
     }
   }
+  .system {
+    $self: &;
+    &__image {
+      max-width: 50%;
+    }
+    &__container {
+      &:nth-child(2) {
+        flex-direction: column-reverse;
+        #{$self}__column {
+          &--left,
+          &--right {
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: $small) {
-  .title-h1 {
+  .title-h1,
+  .title-h2 {
     font-size: 46px;
     font-style: normal;
     font-weight: 400;
     line-height: 95%; /* 43.7px */
     letter-spacing: -1.84px;
     text-transform: capitalize;
-  }
-  .title-h2 {
   }
   .title-h3 {
     font-size: 26px;
@@ -138,12 +271,33 @@ $x-small: 420px;
     line-height: 115%; /* 29.9px */
     letter-spacing: -0.78px;
   }
+  .title-h4 {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 12px */
+    letter-spacing: 1.44px;
+  }
+  .text {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: 130%; /* 20.8px */
+    letter-spacing: -0.16px;
+  }
   .descr {
     font-size: 16px;
     font-style: normal;
     font-weight: 450;
     line-height: 130%; /* 20.8px */
     letter-spacing: -0.16px;
+    &--large {
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 115%; /* 29.9px */
+      letter-spacing: -0.78px;
+    }
   }
   .hero {
     &__links {
@@ -178,13 +332,48 @@ $x-small: 420px;
   }
   .cell {
     padding-top: unset;
-    padding-bottom: 90px;
+    padding-bottom: 45px;
     &__wrapper {
       margin-bottom: 16px;
     }
     &__slides {
       &-item {
         gap: 16px;
+      }
+    }
+  }
+  .system {
+    padding: 45px 0;
+    &__image {
+      max-width: 100%;
+    }
+    &__row {
+      &--information {
+        gap: 32px;
+      }
+    }
+    &__information {
+      &-title {
+        margin-bottom: 32px;
+      }
+      &-list {
+        $self: &;
+        &--required {
+          #{$self}-item {
+            align-items: flex-start;
+            &::before {
+              margin-top: 2.5px;
+            }
+          }
+        }
+        &--optional {
+          gap: 10px;
+          #{$self}-item {
+            &::before {
+              margin-bottom: 2px;
+            }
+          }
+        }
       }
     }
   }
