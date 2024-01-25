@@ -394,7 +394,6 @@ $(document).ready(function () {
       trigger: '.system',
       start: '+=3300',
       once: true,
-      markers: true,
     })
   } else {
     // Mobile animation
