@@ -74,7 +74,7 @@ $(document).ready(function () {
   let isCellSlideAnimating = false // only for mobile
 
   function initCellAnimate() {
-    if ($(window).width() > 768) {
+    if ($(window).width() >= 1024) {
       let cellTl = gsap.timeline({
         defaults: { duration: 1 },
       })
@@ -167,6 +167,8 @@ $(document).ready(function () {
           if ($(item).hasClass('active')) {
             return
           }
+          if (isCellSlideAnimating) return
+          isCellSlideAnimating = true
           $('.cell__slides').css(
             'height',
             `${cellSlides[index].offsetHeight + 1}px`
@@ -198,6 +200,9 @@ $(document).ready(function () {
               y: 0,
               delay: 0.6,
               ease: 'power3.out',
+              onComplete: () => {
+                isCellSlideAnimating = false
+              },
             }
           )
 
@@ -211,6 +216,9 @@ $(document).ready(function () {
                 opacity: 1,
                 delay: 1,
                 ease: 'power3.out',
+                onComplete: () => {
+                  isCellSlideAnimating = false
+                },
               }
             )
           }
@@ -389,12 +397,22 @@ $(document).ready(function () {
         },
         '>10%'
       )
-    ScrollTrigger.create({
-      animation: tlSystem,
-      trigger: '.system',
-      start: '+=3300',
-      once: true,
-    })
+    if ($(window).width() >= 1024) {
+      ScrollTrigger.create({
+        animation: tlSystem,
+        trigger: '.system',
+        start: '+=3300',
+        once: true,
+      })
+    } else {
+      ScrollTrigger.create({
+        animation: tlSystem,
+        trigger: '.system',
+        start: 'center 15%',
+        end: 'bottom top',
+        once: true,
+      })
+    }
   } else {
     // Mobile animation
   }

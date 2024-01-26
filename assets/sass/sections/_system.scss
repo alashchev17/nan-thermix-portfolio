@@ -7,6 +7,13 @@
   &__container {
     display: flex;
     align-items: stretch;
+    &:nth-child(2) {
+      .system__column {
+        &--right {
+          overflow-x: hidden;
+        }
+      }
+    }
   }
   &__title {
     max-width: 80%;

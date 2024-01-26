@@ -170,6 +170,9 @@ $x-small: 420px;
   }
   .hero {
     padding-top: calc(45px + 50px);
+    &__scroll {
+      display: none;
+    }
     &__information {
       max-width: 100%;
       margin-bottom: 50%;
@@ -237,12 +240,14 @@ $x-small: 420px;
   }
   .system {
     $self: &;
+    gap: 32px;
     &__image {
       max-width: 50%;
     }
     &__container {
       &:nth-child(2) {
-        flex-direction: column-reverse;
+        flex-direction: column;
+        gap: 32px;
         #{$self}__column {
           &--left,
           &--right {
@@ -307,9 +312,6 @@ $x-small: 420px;
       &-item {
         justify-content: space-between;
       }
-    }
-    &__scroll {
-      display: none;
     }
   }
   .slogan {
