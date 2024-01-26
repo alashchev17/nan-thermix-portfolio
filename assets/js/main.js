@@ -417,6 +417,23 @@ $(document).ready(function () {
     // Mobile animation
   }
 
+  // Advantages
+
+  if ($(window).width() >= 768) {
+    $('.advantages__slider-wrapper').slick({
+      nextArrow: $(
+        '.advantages__slider-controls--desktop .advantages__slider-button--next'
+      ),
+      prevArrow: $(
+        '.advantages__slider-controls--desktop .advantages__slider-button--prev'
+      ),
+      infinite: false,
+      adaptiveHeight: true,
+      draggable: false,
+      slidesToShow: 4,
+    })
+  }
+
   $(window).on('load', () => {
     fixHeader()
     sloganAnimate()
