@@ -305,9 +305,10 @@ $x-small: 420px;
     &__slider {
       &-item {
         padding: 16px;
+        min-width: unset;
         width: 260px;
         height: 280px;
-        box-shadow: unset;
+        // box-shadow: unset;
       }
     }
   }

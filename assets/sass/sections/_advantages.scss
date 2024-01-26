@@ -54,7 +54,7 @@
     position: relative;
     &-wrapper {
       .slick-list {
-        overflow: unset;
+        overflow: unset !important;
       }
     }
     &-button {

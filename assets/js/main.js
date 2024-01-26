@@ -448,6 +448,7 @@ $(document).ready(function () {
           prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
           slidesToShow: 1,
           slidesToScroll: 1,
+          variableWidth: true,
           // swipe: true,
           // swipeToSlide: true,
         },
