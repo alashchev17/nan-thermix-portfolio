@@ -7,6 +7,13 @@
     align-items: flex-end;
     margin-bottom: 40px;
   }
+  &__title {
+    font-size: 135px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 95%; /* 128.25px */
+    letter-spacing: -6.075px;
+  }
   &__link {
     position: relative;
     font-family: 'Aileron', sans-serif;
@@ -18,8 +25,7 @@
     padding: 3px 0 6px 0;
     width: 338px;
     margin-bottom: 12px;
-    background: linear-gradient(271deg, var(--black), var(--black)),
-      var(--warm-gradient-4);
+    background: linear-gradient(271deg, var(--black), var(--black)), var(--warm-gradient-4);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -62,10 +68,9 @@
       justify-content: center;
       opacity: 0;
       visibility: hidden;
-      transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out,
-        visibility 0.3s ease-in-out;
+      transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
       &.slick-disabled {
-        background-color: var(--semi-gray);
+        background-color: var(--light-gray);
         cursor: not-allowed;
       }
       svg {
@@ -82,6 +87,16 @@
       $self: &;
       &--mobile {
         display: none;
+        gap: 6px;
+        .advantages__slider-button {
+          width: 38px;
+          height: 38px;
+          opacity: 1;
+          visibility: visible;
+          svg {
+            max-width: 14px;
+          }
+        }
       }
       &--desktop {
         position: absolute;
@@ -144,5 +159,10 @@
         margin-right: 10px;
       }
     }
+  }
+  &__button {
+    display: none;
+    margin-top: 60px;
+    background: var(--orange);
   }
 }

@@ -59,9 +59,7 @@ $(document).ready(function () {
         },
       })
       sloganTl.to('.slogan__title', {
-        x: () =>
-          document.documentElement.offsetWidth -
-          document.querySelector('.slogan__title').scrollWidth,
+        x: () => document.documentElement.offsetWidth - document.querySelector('.slogan__title').scrollWidth,
         ease: 'power3.inOut',
       })
     }
@@ -87,10 +85,7 @@ $(document).ready(function () {
         scrub: 1.2,
         pin: true,
         onUpdate: ({ progress }) => {
-          let currentProgress =
-            Math.ceil((progress * 100) / 20 - 1) >= 0
-              ? Math.ceil((progress * 100) / 20 - 1)
-              : 0
+          let currentProgress = Math.ceil((progress * 100) / 20 - 1) >= 0 ? Math.ceil((progress * 100) / 20 - 1) : 0
           $('.cell__slides').css('height', `${cellSlides[3].offsetHeight}px`)
           cellBullets.removeClass('active')
           cellBullets.eq(currentProgress).addClass('active')
@@ -169,10 +164,7 @@ $(document).ready(function () {
           }
           if (isCellSlideAnimating) return
           isCellSlideAnimating = true
-          $('.cell__slides').css(
-            'height',
-            `${cellSlides[index].offsetHeight + 1}px`
-          )
+          $('.cell__slides').css('height', `${cellSlides[index].offsetHeight + 1}px`)
           cellSlideCounter = index + 1
           $('.cell__wrapper-current').text(cellSlideCounter)
 
@@ -249,10 +241,7 @@ $(document).ready(function () {
           if (nextSlide && nextBullet) {
             cellSlideCounter = Number(nextBullet.data('number')) + 1
             $('.cell__wrapper-current').text(cellSlideCounter)
-            $('.cell__slides').css(
-              'height',
-              `${nextSlide[0].offsetHeight + 1}px`
-            )
+            $('.cell__slides').css('height', `${nextSlide[0].offsetHeight + 1}px`)
 
             currentSlide.removeClass('active')
             gsap.to(currentSlide, {
@@ -418,21 +407,53 @@ $(document).ready(function () {
   }
 
   // Advantages
-
-  if ($(window).width() >= 768) {
-    $('.advantages__slider-wrapper').slick({
-      nextArrow: $(
-        '.advantages__slider-controls--desktop .advantages__slider-button--next'
-      ),
-      prevArrow: $(
-        '.advantages__slider-controls--desktop .advantages__slider-button--prev'
-      ),
-      infinite: false,
-      adaptiveHeight: true,
-      draggable: false,
-      slidesToShow: 4,
-    })
-  }
+  $('.advantages__slider-wrapper').slick({
+    nextArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--next'),
+    prevArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--prev'),
+    infinite: false,
+    adaptiveHeight: true,
+    draggable: false,
+    slidesToShow: 4,
+    slidesToScroll: 2,
+    responsive: [
+      {
+        breakpoint: 1270,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 1025,
+        settings: {
+          nextArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--next'),
+          prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 960,
+        settings: {
+          nextArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--next'),
+          prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 650,
+        settings: {
+          nextArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--next'),
+          prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          // swipe: true,
+          // swipeToSlide: true,
+        },
+      },
+    ],
+  })
 
   $(window).on('load', () => {
     fixHeader()
