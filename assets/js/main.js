@@ -407,53 +407,80 @@ $(document).ready(function () {
   }
 
   // Advantages
-  $('.advantages__slider-wrapper').slick({
-    nextArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--next'),
-    prevArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--prev'),
-    infinite: false,
-    adaptiveHeight: true,
-    draggable: false,
-    slidesToShow: 4,
-    slidesToScroll: 2,
-    responsive: [
-      {
-        breakpoint: 1270,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1025,
-        settings: {
-          nextArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--next'),
-          prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 960,
-        settings: {
-          nextArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--next'),
-          prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
-          slidesToShow: 2,
+
+  function initAdvantagesAnimation() {
+    let advantagesTl = gsap.timeline()
+  }
+
+  let isReinitializedOnMobile = false
+
+  function destroyAndReinitializeAdvantagesSlider() {
+    const advantagesSlider = $('.advantages__slider-wrapper')
+    if ($(window).width() > 1024) {
+      if (isReinitializedOnMobile) isReinitializedOnMobile = false // необходимо для очистки флага инициализации слайдера на мобильном устройстве
+      if (!advantagesSlider.hasClass('slick-initialized')) {
+        advantagesSlider.slick({
+          nextArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--next'),
+          prevArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--prev'),
+          infinite: false,
+          adaptiveHeight: true,
+          draggable: false,
+          slidesToShow: 4,
           slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 650,
-        settings: {
-          nextArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--next'),
-          prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          variableWidth: true,
-          // swipe: true,
-          // swipeToSlide: true,
-        },
-      },
-    ],
+          responsive: [
+            {
+              breakpoint: 1270,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+              },
+            },
+          ],
+        })
+      }
+    } else {
+      if (!isReinitializedOnMobile) {
+        if (!advantagesSlider.hasClass('slick-initialized')) {
+          isReinitializedOnMobile = true
+          advantagesSlider.slick({
+            nextArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--next'),
+            prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
+            infinite: false,
+            adaptiveHeight: true,
+            swipe: true,
+            swipeToSlide: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 960,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                },
+              },
+              {
+                breakpoint: 650,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  variableWidth: true,
+                },
+              },
+            ],
+          }) // переназначаем настройки слайдера если окно браузера < 1024px
+        } else {
+          advantagesSlider.slick('unslick')
+        }
+      }
+    }
+  }
+
+  destroyAndReinitializeAdvantagesSlider()
+  initAdvantagesAnimation() // Инициализация анимации при загрузке страницы
+
+  $(window).on('resize', function () {
+    destroyAndReinitializeAdvantagesSlider()
   })
 
   $(window).on('load', () => {
@@ -465,4 +492,5 @@ $(document).ready(function () {
   $(document).on('scroll', () => {
     fixHeader()
   })
+  // $(window).on('resize', destroyAndinitializeAdvantagesSlider)
 })

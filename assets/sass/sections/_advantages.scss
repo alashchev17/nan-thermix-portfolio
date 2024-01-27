@@ -66,8 +66,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      visibility: hidden;
       transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
       &.slick-disabled {
         background-color: var(--light-gray);
@@ -85,15 +83,20 @@
     }
     &-controls {
       $self: &;
+      &--desktop {
+        .advantages__slider-button {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
       &--mobile {
         display: none;
         gap: 6px;
         .advantages__slider-button {
           width: 38px;
           height: 38px;
-          opacity: 1;
-          visibility: visible;
           svg {
+            min-width: 14px;
             max-width: 14px;
           }
         }
