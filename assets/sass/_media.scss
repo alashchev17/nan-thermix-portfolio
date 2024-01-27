@@ -54,6 +54,14 @@ $x-small: 420px;
       }
     }
   }
+  .discovery {
+    &__title {
+      font-size: 120px;
+      align-items: baseline;
+      justify-content: unset;
+      gap: 90px;
+    }
+  }
 }
 
 @media screen and (max-width: $medium-large) {
@@ -86,9 +94,6 @@ $x-small: 420px;
         padding: 16px;
       }
     }
-    // &__image {
-    //   display: none;
-    // }
     &__container {
       &:nth-child(2) {
         #{$self}__column {
@@ -97,6 +102,27 @@ $x-small: 420px;
           }
         }
       }
+    }
+  }
+  .discovery {
+    &__title {
+      font-size: 90px;
+      &--strong {
+        line-height: 75px;
+        padding: 7px 30px 15px 30px;
+      }
+    }
+    &__information {
+      margin-top: 75px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 50px;
+    }
+    &__text {
+      max-width: 45%;
+    }
+    &__descr {
+      max-width: 55%;
     }
   }
 }
@@ -179,6 +205,17 @@ $x-small: 420px;
         &--desktop {
           display: none;
         }
+      }
+    }
+  }
+  .discovery {
+    &__title {
+      font-size: 64px;
+      letter-spacing: -1.8px;
+      gap: 50px;
+      &--strong {
+        line-height: 65px;
+        padding: 0px 30px 5px 30px;
       }
     }
   }
@@ -290,7 +327,7 @@ $x-small: 420px;
     }
   }
   .advantages {
-    padding-bottom: 90px;
+    padding-bottom: 45px;
     &__header {
       align-items: center;
       margin-bottom: 32px;
@@ -310,6 +347,72 @@ $x-small: 420px;
         height: 280px;
         // box-shadow: unset;
       }
+    }
+  }
+  .discovery {
+    padding: 45px 0;
+    &__slogan {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    &__title {
+      font-size: 45px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: 90%;
+      letter-spacing: -1.8px;
+      &--strong {
+        line-height: 45px;
+        padding: 0px 10px 4px 10px;
+        $border: 1px;
+        border: solid $border transparent;
+        &::before {
+          margin: -$border;
+        }
+      }
+      &--desktop {
+        display: none;
+      }
+      &--mobile {
+        display: flex;
+      }
+      &:nth-child(3) {
+        position: relative;
+        display: inline-block;
+        &::before {
+          content: '';
+          display: inline-block;
+          flex-shrink: 0;
+          width: 132px;
+          height: 32px;
+          background-image: url('../images/discovery-map--mobile.svg');
+          background-position: center center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          margin-right: 10px;
+        }
+      }
+      &:last-child {
+        margin-bottom: unset;
+      }
+    }
+    &__information {
+      margin-top: 32px;
+    }
+    &__wrapper {
+      flex-direction: column;
+      gap: 32px;
+    }
+    &__year {
+      display: none;
+    }
+    &__text {
+      max-width: 100%;
+    }
+    &__descr {
+      max-width: 100%;
     }
   }
 }
