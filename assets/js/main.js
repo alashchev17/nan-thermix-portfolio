@@ -1,6 +1,7 @@
 $(document).ready(function () {
   // Register ScrollTrigger plugin
   gsap.registerPlugin(ScrollTrigger)
+  gsap.registerPlugin(CustomEase)
 
   const lenis = new Lenis()
 
@@ -409,7 +410,63 @@ $(document).ready(function () {
   // Advantages
 
   function initAdvantagesAnimation() {
-    let advantagesTl = gsap.timeline()
+    if ($(window).width() > 1024) {
+      let advantagesTl = gsap.timeline({
+        defaults: { duration: 1, ease: 'power3.out' },
+      })
+
+      advantagesTl
+        .from('.advantages__title', {
+          x: '-100%',
+          opacity: 0,
+        })
+        .from(
+          '.advantages__link',
+          {
+            x: '100%',
+            opacity: 0,
+          },
+          '<'
+        )
+        .from('.advantages__slider-item', {
+          opacity: 0,
+          duration: 0.6,
+        })
+        .from(
+          '.advantages__slider-item',
+          {
+            x: (index) => {
+              const marginRight = 10
+              return -$('.advantages__slider-item').outerWidth() * index - (index === 0 ? 0 : marginRight * index)
+            },
+            ease: CustomEase.create(
+              'custom',
+              'M0,0 C0.083,0.294 0.161,0.712 0.418,0.964 0.458,1.003 0.528,1.025 0.619,1.015 0.849,0.989 0.863,1 1,1 '
+            ),
+            stagger: false,
+            duration: 1.5,
+          },
+          '>25%'
+        )
+        .fromTo(
+          '.advantages__slider-item',
+          {
+            boxShadow: '0px 0px 0px 0px rgba(61, 62, 72, 0.15)',
+          },
+          {
+            boxShadow: '25px 40px 60px 0px rgba(61, 62, 72, 0.15)',
+          },
+          '<'
+        )
+      ScrollTrigger.create({
+        animation: advantagesTl,
+        trigger: '.advantages',
+        start: 'top center',
+        once: true,
+      })
+    } else {
+      // Mobile animation
+    }
   }
 
   let isReinitializedOnMobile = false
@@ -418,26 +475,27 @@ $(document).ready(function () {
     const advantagesSlider = $('.advantages__slider-wrapper')
     if ($(window).width() > 1024) {
       if (isReinitializedOnMobile) isReinitializedOnMobile = false // необходимо для очистки флага инициализации слайдера на мобильном устройстве
-      if (!advantagesSlider.hasClass('slick-initialized')) {
-        advantagesSlider.slick({
-          nextArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--next'),
-          prevArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--prev'),
-          infinite: false,
-          adaptiveHeight: true,
-          draggable: false,
-          slidesToShow: 4,
-          slidesToScroll: 2,
-          responsive: [
-            {
-              breakpoint: 1270,
-              settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-              },
-            },
-          ],
-        })
+      if (advantagesSlider.hasClass('slick-initialized')) {
+        advantagesSlider.slick('unslick')
       }
+      advantagesSlider.slick({
+        nextArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--next'),
+        prevArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--prev'),
+        infinite: false,
+        adaptiveHeight: true,
+        draggable: false,
+        slidesToShow: 4,
+        slidesToScroll: 2,
+        responsive: [
+          {
+            breakpoint: 1270,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+            },
+          },
+        ],
+      })
     } else {
       if (!isReinitializedOnMobile) {
         if (!advantagesSlider.hasClass('slick-initialized')) {
@@ -477,7 +535,6 @@ $(document).ready(function () {
   }
 
   destroyAndReinitializeAdvantagesSlider()
-  initAdvantagesAnimation() // Инициализация анимации при загрузке страницы
 
   $(window).on('resize', function () {
     destroyAndReinitializeAdvantagesSlider()
@@ -487,6 +544,7 @@ $(document).ready(function () {
     fixHeader()
     sloganAnimate()
     initCellAnimate()
+    initAdvantagesAnimation()
   })
 
   $(document).on('scroll', () => {
