@@ -2,6 +2,7 @@
   padding-top: 45px;
   position: relative;
   padding-bottom: 20px;
+  overflow: hidden;
   &__image {
     position: absolute;
     top: 16px;
@@ -60,8 +61,7 @@
       border-radius: 50%;
       border: 1px solid;
       border-color: var(--semi-gray);
-      transition: border-color 0.3s ease-in-out,
-        background-color 0.3s ease-in-out;
+      transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
       &.active {
         background-color: var(--orange);
         border-color: var(--orange);

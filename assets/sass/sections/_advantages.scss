@@ -111,13 +111,11 @@
         justify-content: center;
         width: 100%;
         height: 100%;
-        // border: 5px solid red;
         transform: translate(-50%, -50%);
         z-index: 1000;
         #{$self}--left,
         #{$self}--right {
           height: 100%;
-          // border: 1px solid green;
           display: flex;
           align-items: center;
           justify-content: center;
