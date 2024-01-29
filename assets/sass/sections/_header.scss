@@ -58,15 +58,14 @@
     position: relative;
     font-size: 14px;
     font-weight: 600;
-    background: linear-gradient(271deg, var(--semi-gray), var(--semi-gray)),
-      var(--warm-gradient-4);
+    background: linear-gradient(271deg, var(--semi-gray), var(--semi-gray)), var(--warm-gradient-4);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 100% 100%, 0 100%;
     background-position: 100% 100%, 0 100%;
     background-repeat: no-repeat;
-    transition: background-size 0.1s ease-in-out;
+    transition: background-size 0.3s ease-in-out;
     &::before {
       content: '';
       position: absolute;

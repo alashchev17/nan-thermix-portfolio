@@ -146,6 +146,18 @@ $(document).ready(function () {
             },
             '>'
           )
+          .fromTo(
+            cellSlides[index + 1],
+            {
+              y: '100%',
+              opacity: 0,
+            },
+            {
+              y: 0,
+              opacity: 1,
+            },
+            '>'
+          )
       })
     } else {
       // Mobile
@@ -391,14 +403,14 @@ $(document).ready(function () {
       ScrollTrigger.create({
         animation: tlSystem,
         trigger: '.system',
-        start: '+=3500 15%',
-        end: 'bottom top',
+        start: '+=3300',
+        once: true,
       })
     } else {
       ScrollTrigger.create({
         animation: tlSystem,
         trigger: '.system',
-        start: 'top 15%',
+        start: 'center 15%',
         end: 'bottom top',
         once: true,
       })
@@ -458,6 +470,14 @@ $(document).ready(function () {
           },
           '<'
         )
+        .from(
+          '.advantages__slider-controls--desktop',
+          {
+            visibility: 'hidden',
+            opacity: 0,
+          },
+          '<'
+        )
       ScrollTrigger.create({
         animation: advantagesTl,
         trigger: '.advantages',
@@ -469,11 +489,12 @@ $(document).ready(function () {
     }
   }
 
-  let isReinitializedAdvantagesOnMobile = false
+  let isReinitializedOnMobile = false
+
   function destroyAndReinitializeAdvantagesSlider() {
     const advantagesSlider = $('.advantages__slider-wrapper')
     if ($(window).width() > 1024) {
-      if (isReinitializedAdvantagesOnMobile) isReinitializedAdvantagesOnMobile = false // необходимо для очистки флага инициализации слайдера на мобильном устройстве
+      if (isReinitializedOnMobile) isReinitializedOnMobile = false // необходимо для очистки флага инициализации слайдера на мобильном устройстве
       if (advantagesSlider.hasClass('slick-initialized')) {
         advantagesSlider.slick('unslick')
       }
@@ -496,9 +517,9 @@ $(document).ready(function () {
         ],
       })
     } else {
-      if (!isReinitializedAdvantagesOnMobile) {
+      if (!isReinitializedOnMobile) {
         if (!advantagesSlider.hasClass('slick-initialized')) {
-          isReinitializedAdvantagesOnMobile = true
+          isReinitializedOnMobile = true
           advantagesSlider.slick({
             nextArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--next'),
             prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
@@ -584,8 +605,8 @@ $(document).ready(function () {
       ScrollTrigger.create({
         animation: discoveryTl,
         trigger: '.discovery',
-        start: 'top 15%',
-        end: '+=3500',
+        start: 'top 10%',
+        end: '+=3300',
         pin: true,
         scrub: 1.2,
       })
@@ -593,107 +614,55 @@ $(document).ready(function () {
   }
 
   // Applications
-  let isReinitializedApplicationsOnMobile = false
-  function destroyAndReinitializeApplicationsSlider() {
-    const applicationsSlider = $('.applications__slider')
-    if ($(window).width() > 1024) {
-      if (isReinitializedApplicationsOnMobile) isReinitializedApplicationsOnMobile = false // необходимо для очистки флага инициализации слайдера на мобильном устройстве
-      if (applicationsSlider.hasClass('slick-initialized')) {
-        applicationsSlider.slick('unslick')
-      }
-      applicationsSlider.slick({
-        nextArrow: $('.applications__controls-button--next'),
-        prevArrow: $('.applications__controls-button--prev'),
-        infinite: false,
-        adaptiveHeight: true,
-        draggable: false,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1270,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-            },
-          },
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-            },
-          },
-          {
-            breakpoint: 960,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 1,
-            },
-          },
-          {
-            breakpoint: 650,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              variableWidth: true,
-            },
-          },
-        ],
-      })
-    } else {
-      if (!isReinitializedApplicationsOnMobile) {
-        if (!applicationsSlider.hasClass('slick-initialized')) {
-          isReinitializedApplicationsOnMobile = true
-          applicationsSlider.slick({
-            nextArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--next'),
-            prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
-            infinite: false,
-            adaptiveHeight: true,
-            swipe: true,
-            swipeToSlide: true,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            responsive: [
-              {
-                breakpoint: 960,
-                settings: {
-                  slidesToShow: 2,
-                  slidesToScroll: 1,
-                },
-              },
-              {
-                breakpoint: 650,
-                settings: {
-                  slidesToShow: 1,
-                  slidesToScroll: 1,
-                  variableWidth: true,
-                },
-              },
-            ],
-          }) // переназначаем настройки слайдера если окно браузера < 1024px
-        } else {
-          applicationsSlider.slick('unslick')
-        }
-      }
-    }
-  }
+  const applicationsSlider = $('.applications__slider')
 
-  destroyAndReinitializeApplicationsSlider()
-
-  $(window).on('resize', function () {
-    destroyAndReinitializeApplicationsSlider()
+  applicationsSlider.slick({
+    nextArrow: $('.applications__controls-button--next'),
+    prevArrow: $('.applications__controls-button--prev'),
+    infinite: false,
+    adaptiveHeight: true,
+    draggable: false,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1270,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 650,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          variableWidth: true,
+        },
+      },
+    ],
   })
 
-  fixHeader()
-  sloganAnimate()
-  initCellAnimate()
-  initAdvantagesAnimation()
-  initDiscoveryAnimation()
-
   $(window).on('load', () => {
-    // realize functions to remove preloader and release scroll
-    console.log('document fully initialized')
+    fixHeader()
+    sloganAnimate()
+    initCellAnimate()
+    initAdvantagesAnimation()
+    initDiscoveryAnimation()
   })
 
   $(document).on('scroll', () => {
