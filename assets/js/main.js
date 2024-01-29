@@ -458,14 +458,6 @@ $(document).ready(function () {
           },
           '<'
         )
-        .from(
-          '.advantages__slider-controls--desktop',
-          {
-            visibility: 'hidden',
-            opacity: 0,
-          },
-          '<'
-        )
       ScrollTrigger.create({
         animation: advantagesTl,
         trigger: '.advantages',
