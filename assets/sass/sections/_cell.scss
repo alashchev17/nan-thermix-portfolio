@@ -2,21 +2,21 @@
   padding-top: 45px;
   position: relative;
   padding-bottom: 20px;
-  overflow: hidden;
+  // overflow-x: hidden;
   &__image {
     position: absolute;
     top: 16px;
     left: 0;
-    width: 50%;
+    width: 40%;
     max-width: 700px;
     height: auto;
     object-fit: cover;
   }
   &__container {
-    overflow: hidden;
+    // overflow: hidden;
   }
   &__content {
-    max-width: 50%;
+    max-width: 60%;
     margin-left: auto;
     // overflow: hidden;
   }
@@ -88,7 +88,7 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 25px;
-      max-width: 570px;
+      // max-width: 570px;
       opacity: 0;
       z-index: -1;
       &.active {

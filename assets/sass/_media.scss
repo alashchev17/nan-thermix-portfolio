@@ -219,6 +219,26 @@ $x-small: 420px;
       }
     }
   }
+  .applications {
+    &__title {
+      font-size: 38px !important;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 100% !important; /* 38px */
+      letter-spacing: -1.52px !important;
+    }
+    &__controls {
+      gap: 6px;
+      &-button {
+        width: 38px;
+        height: 38px;
+        svg {
+          min-width: 14px;
+          max-width: 14px;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: $medium) {
@@ -230,6 +250,10 @@ $x-small: 420px;
       line-height: 110%; /* 19.8px */
       letter-spacing: -0.54px;
     }
+  }
+  .link {
+    font-size: 12px;
+    padding: 8px 11px;
   }
   .header {
     &__container {
@@ -415,17 +439,33 @@ $x-small: 420px;
       max-width: 100%;
     }
   }
+  .applications {
+    padding: 45px 0;
+    &__slider {
+      &-item {
+        width: 260px;
+        min-height: 275px;
+        padding: 16px;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: $small) {
-  .title-h1,
-  .title-h2 {
+  .title-h1 {
     font-size: 46px;
     font-style: normal;
     font-weight: 400;
     line-height: 95%; /* 43.7px */
     letter-spacing: -1.84px;
     text-transform: capitalize;
+  }
+  .title-h2 {
+    font-size: 38px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 38px */
+    letter-spacing: -1.52px;
   }
   .title-h3 {
     font-size: 26px;
@@ -454,7 +494,7 @@ $x-small: 420px;
     font-weight: 450;
     line-height: 130%; /* 20.8px */
     letter-spacing: -0.16px;
-    &--large {
+    &-large {
       font-size: 26px;
       font-style: normal;
       font-weight: 400;
@@ -504,6 +544,14 @@ $x-small: 420px;
   }
   .system {
     padding: 45px 0;
+    &__title {
+      font-size: 46px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 95%; /* 43.7px */
+      letter-spacing: -1.84px;
+      text-transform: capitalize;
+    }
     &__image {
       max-width: 100%;
     }

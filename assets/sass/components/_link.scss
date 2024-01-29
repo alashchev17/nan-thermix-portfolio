@@ -1,0 +1,22 @@
+.link {
+  font-family: 'Aileron', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%;
+  padding: 10px 14px;
+  border-radius: 100px;
+  &--primary {
+    background-color: var(--light-gray);
+    color: var(--gray);
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    &:hover {
+      background-color: var(--gray);
+      color: var(--white);
+    }
+  }
+  &--secondary {
+    background-color: #ffe9d9;
+    color: var(--orange);
+  }
+}

@@ -644,6 +644,7 @@ $(document).ready(function () {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
+          variableWidth: true,
         },
       },
       {
@@ -655,6 +656,91 @@ $(document).ready(function () {
         },
       },
     ],
+  })
+
+  const applicationsSliderItemBodies = $('.applications__slider-item-body')
+  const applicationsSliderItemInners = $('.applications__slider-item-inner')
+  $('.applications__slider-item-more').each(function (index, item) {
+    $(item).on('click', (event) => {
+      event.preventDefault()
+      let cardTl = gsap.timeline({ defaults: { duration: 0.3 } })
+      cardTl
+        .to(applicationsSliderItemBodies[index], {
+          opacity: 0,
+        })
+        .to(
+          applicationsSliderItemBodies[index],
+          {
+            display: 'none',
+          },
+          '>'
+        )
+        .to(
+          $('.applications__slider-item')[index],
+          {
+            height: '100%',
+            ease: 'power3.out',
+          },
+          '<'
+        )
+        .to(
+          $('.applications__slider-item')[index],
+          {
+            minHeight: '100%',
+            ease: 'power3.out',
+          },
+          '>'
+        )
+        .to(
+          applicationsSliderItemInners[index],
+          {
+            display: 'flex',
+          },
+          '<'
+        )
+        .to(
+          applicationsSliderItemInners[index],
+          {
+            opacity: 1,
+          },
+          '<'
+        )
+    })
+  })
+  $('.applications__slider-back').each(function (index, item) {
+    $(item).on('click', (event) => {
+      event.preventDefault()
+      let cardTl = gsap.timeline({ defaults: { duration: 0.3 } })
+      cardTl
+        .to(applicationsSliderItemInners[index], {
+          opacity: 0,
+        })
+        .to(
+          applicationsSliderItemInners[index],
+          {
+            display: 'none',
+          },
+          '>'
+        )
+        .to(
+          applicationsSliderItemBodies[index],
+          {
+            display: 'flex',
+          },
+          '>'
+        )
+        .to(
+          applicationsSliderItemBodies[index],
+          {
+            opacity: 1,
+          },
+          '<'
+        )
+      setTimeout(() => {
+        $('.applications__slider-item')[index].style.height = ''
+        $('.applications__slider-item')[index].style.minHeight = ''
+      }, 400)
+    })
   })
 
   $(window).on('load', () => {
