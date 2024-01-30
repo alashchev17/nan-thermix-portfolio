@@ -129,7 +129,7 @@ $x-small: 420px;
 
 @media screen and (max-width: $extra-large) {
   .site-container {
-    overflow-x: hidden;
+    overflow: hidden;
   }
   .header {
     &__nav {
@@ -490,12 +490,13 @@ $x-small: 420px;
         padding: 16px;
         max-width: 260px;
         gap: 32px;
-        transition-delay: 0s;
+        // transition-delay: 0s;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
         &:not(:last-child) {
           margin-right: 10px;
         }
         &.slick-current {
-          scale: 1;
+          transform: scale(1);
           opacity: 1;
         }
         // &.slick-current[data-slick-index='0'] {     // for infinite animation

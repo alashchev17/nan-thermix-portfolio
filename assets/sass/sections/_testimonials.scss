@@ -30,8 +30,12 @@
     align-items: center;
     margin-bottom: 40px;
   }
-  &__wrapper {
-    position: relative;
+  &__container {
+    &:nth-child(2) {
+      position: relative;
+      max-width: 1300px;
+      overflow: hidden;
+    }
   }
   &__controls {
     &-button {
@@ -82,14 +86,23 @@
         &-button {
           position: absolute;
           top: 38px;
-          right: -50px;
           width: 100px;
           height: 100px;
+          opacity: 0;
+          transition: opacity 0.3s ease-in-out;
+          &:hover {
+            opacity: 1;
+          }
+          svg {
+            max-width: 36.67px;
+            min-width: 36.67px;
+          }
           &--next {
-            svg {
-              max-width: 36.67px;
-              min-width: 36.67px;
-            }
+            right: -50px;
+          }
+          &--prev {
+            left: -50px;
+            transform: rotate(180deg);
           }
         }
       }
@@ -100,6 +113,7 @@
       overflow: unset !important;
     }
     &-item {
+      position: relative;
       color: var(--black);
       padding: 40px;
       display: flex !important;
@@ -109,12 +123,13 @@
       border-radius: 20px;
       max-width: 453px;
       background: radial-gradient(60.31% 88.28% at 96.63% 20.86%, rgba(100, 172, 237, 0.2) 0%, rgba(241, 233, 223, 0.2) 100%), #f6f7f8;
-      transition: scale 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      // transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
       opacity: 0.2;
-      scale: 0.785;
+      transform: scale(0.785);
       &.slick-center {
-        scale: 1;
+        transform: scale(1);
         opacity: 1;
+        z-index: 20;
       }
     }
   }

@@ -748,6 +748,84 @@ $(document).ready(function () {
   })
 
   // Testimonials
+  function initTestimonialsAnimation() {
+    if ($(window).width() > 768) {
+      let testimonialsTl = gsap.timeline({
+        defaults: { duration: 1, ease: 'power3.out' },
+        onComplete: () => {
+          gsap.set('.testimonials__slider-item', { clearProps: true })
+          gsap.set('.testimonials__slider-item', {
+            transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out',
+          })
+        },
+      })
+
+      testimonialsTl
+        .from('.testimonials__title', {
+          y: '100%',
+          opacity: 0,
+        })
+        .fromTo(
+          '.testimonials__slider-item.slick-center',
+          {
+            opacity: 0,
+            y: '100%',
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power3.out',
+          },
+          '>'
+        )
+        .from(
+          `.testimonials__slider-item[data-slick-index="-1"]`,
+          {
+            opacity: 0,
+            x: '100%',
+            ease: CustomEase.create(
+              'custom',
+              'M0,0 C0.083,0.294 0.161,0.712 0.418,0.964 0.458,1.003 0.528,1.025 0.619,1.015 0.849,0.989 0.863,1 1,1 '
+            ),
+            stagger: false,
+            duration: 1.5,
+          },
+          '>25%'
+        )
+        .from(
+          '.testimonials__slider-item[data-slick-index="1"]',
+          {
+            opacity: 0,
+            x: '-100%',
+            ease: CustomEase.create(
+              'custom',
+              'M0,0 C0.083,0.294 0.161,0.712 0.418,0.964 0.458,1.003 0.528,1.025 0.619,1.015 0.849,0.989 0.863,1 1,1 '
+            ),
+            stagger: false,
+            duration: 1.5,
+          },
+          '<'
+        )
+        .from(
+          '.testimonials__controls--desktop',
+          {
+            visibility: 'hidden',
+            opacity: 0,
+          },
+          '<'
+        )
+      ScrollTrigger.create({
+        animation: testimonialsTl,
+        trigger: '.testimonials',
+        start: 'top center',
+        once: true,
+      })
+    } else {
+      // Mobile animation
+    }
+  }
+
   function initializeTestimonialsSlider() {
     const testimonialsSlider = $('.testimonials__slider')
     const testimonialsSlides = $('.testimonials__slider-item')
@@ -759,7 +837,7 @@ $(document).ready(function () {
 
     testimonialsSlider.slick({
       nextArrow: $('.testimonials__controls--desktop .testimonials__controls-button--next'),
-      prevArrow: false,
+      prevArrow: $('.testimonials__controls--desktop .testimonials__controls-button--prev'),
       infinite: true,
       speed: 1000,
       adaptiveHeight: true,
@@ -789,45 +867,11 @@ $(document).ready(function () {
     fixHeader()
     sloganAnimate()
     initCellAnimate()
-    setTimeout(() => {
-      initAdvantagesAnimation()
-      initDiscoveryAnimation()
-      initializeTestimonialsSlider()
-    }, 300)
+    initAdvantagesAnimation()
+    initDiscoveryAnimation()
+    initializeTestimonialsSlider()
+    initTestimonialsAnimation()
   })
-
-  // responsive: [
-  //   {
-  //     breakpoint: 1270,
-  //     settings: {
-  //       slidesToShow: 3,
-  //       slidesToScroll: 1,
-  //     },
-  //   },
-  //   {
-  //     breakpoint: 1024,
-  //     settings: {
-  //       slidesToShow: 3,
-  //       slidesToScroll: 1,
-  //     },
-  //   },
-  //   {
-  //     breakpoint: 960,
-  //     settings: {
-  //       slidesToShow: 2,
-  //       slidesToScroll: 1,
-  //       variableWidth: true,
-  //     },
-  //   },
-  //   {
-  //     breakpoint: 650,
-  //     settings: {
-  //       slidesToShow: 1,
-  //       slidesToScroll: 1,
-  //       variableWidth: true,
-  //     },
-  //   },
-  // ],
 
   $(document).on('scroll', () => {
     fixHeader()
