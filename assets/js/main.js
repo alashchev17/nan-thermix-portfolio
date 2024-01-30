@@ -743,13 +743,87 @@ $(document).ready(function () {
     })
   })
 
+  // Testimonials
+  function initializeTestimonialsSlider() {
+    const testimonialsSlider = $('.testimonials__slider')
+    const testimonialsSlides = $('.testimonials__slider-item')
+
+    if (testimonialsSlides.length < 3) {
+      $('.testimonials').addClass('non-slick')
+      return
+    }
+
+    testimonialsSlider.innerHTML += `123123123`
+
+    testimonialsSlider.slick({
+      nextArrow: $('.testimonials__controls--desktop .testimonials__controls-button--next'),
+      prevArrow: false,
+      infinite: true,
+      speed: 1000,
+      adaptiveHeight: true,
+      variableWidth: true,
+      draggable: false,
+      centerMode: true,
+      slidesToShow: testimonialsSlides.length - 1,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 769,
+          settings: {
+            nextArrow: $('.testimonials__controls--mobile .testimonials__controls-button--next'),
+            prevArrow: $('.testimonials__controls--mobile .testimonials__controls-button--prev'),
+            centerMode: false,
+            infinite: false,
+            slidesToShow: 1,
+            swipe: true,
+            swipeToSlide: true,
+          },
+        },
+      ],
+    })
+  }
+
   $(window).on('load', () => {
     fixHeader()
     sloganAnimate()
     initCellAnimate()
     initAdvantagesAnimation()
     initDiscoveryAnimation()
+    initializeTestimonialsSlider()
   })
+
+  // responsive: [
+  //   {
+  //     breakpoint: 1270,
+  //     settings: {
+  //       slidesToShow: 3,
+  //       slidesToScroll: 1,
+  //     },
+  //   },
+  //   {
+  //     breakpoint: 1024,
+  //     settings: {
+  //       slidesToShow: 3,
+  //       slidesToScroll: 1,
+  //     },
+  //   },
+  //   {
+  //     breakpoint: 960,
+  //     settings: {
+  //       slidesToShow: 2,
+  //       slidesToScroll: 1,
+  //       variableWidth: true,
+  //     },
+  //   },
+  //   {
+  //     breakpoint: 650,
+  //     settings: {
+  //       slidesToShow: 1,
+  //       slidesToScroll: 1,
+  //       variableWidth: true,
+  //     },
+  //   },
+  // ],
 
   $(document).on('scroll', () => {
     fixHeader()
