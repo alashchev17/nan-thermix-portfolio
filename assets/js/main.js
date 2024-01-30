@@ -78,21 +78,6 @@ $(document).ready(function () {
         defaults: { duration: 1 },
       })
 
-      ScrollTrigger.create({
-        animation: cellTl,
-        trigger: '.cell',
-        start: 'top 15%',
-        end: '+=3500px',
-        scrub: 1.2,
-        pin: true,
-        onUpdate: ({ progress }) => {
-          let currentProgress = Math.ceil((progress * 100) / 20 - 1) >= 0 ? Math.ceil((progress * 100) / 20 - 1) : 0
-          $('.cell__slides').css('height', `${cellSlides[3].offsetHeight}px`)
-          cellBullets.removeClass('active')
-          cellBullets.eq(currentProgress).addClass('active')
-        },
-      })
-
       cellTl.from('.cell__wrapper', {
         x: 100,
         opacity: 0,
@@ -158,6 +143,21 @@ $(document).ready(function () {
             },
             '>'
           )
+      })
+      ScrollTrigger.create({
+        animation: cellTl,
+        trigger: '.cell',
+        start: 'top 10%',
+        end: '+=100%',
+        scrub: 1.5,
+        pin: true,
+        pinSpacing: false,
+        onUpdate: ({ progress }) => {
+          let currentProgress = Math.ceil((progress * 100) / 20 - 1) >= 0 ? Math.ceil((progress * 100) / 20 - 1) : 0
+          $('.cell__slides').css('height', `${cellSlides[3].offsetHeight}px`)
+          cellBullets.removeClass('active')
+          cellBullets.eq(currentProgress).addClass('active')
+        },
       })
     } else {
       // Mobile
@@ -403,14 +403,17 @@ $(document).ready(function () {
       ScrollTrigger.create({
         animation: tlSystem,
         trigger: '.system',
-        start: '+=3300',
-        once: true,
+        start: 'top 15%',
+        end: '+=100%',
+        pin: true,
+        scrub: 1.5,
+        pinSpacing: false,
       })
     } else {
       ScrollTrigger.create({
         animation: tlSystem,
         trigger: '.system',
-        start: 'center 15%',
+        start: 'center 10%',
         end: 'bottom top',
         once: true,
       })
@@ -606,9 +609,10 @@ $(document).ready(function () {
         animation: discoveryTl,
         trigger: '.discovery',
         start: 'top 10%',
-        end: '+=3300',
+        end: '+=100%',
         pin: true,
-        scrub: 1.2,
+        scrub: 1.5,
+        pinSpacing: false,
       })
     }
   }
@@ -753,8 +757,6 @@ $(document).ready(function () {
       return
     }
 
-    testimonialsSlider.innerHTML += `123123123`
-
     testimonialsSlider.slick({
       nextArrow: $('.testimonials__controls--desktop .testimonials__controls-button--next'),
       prevArrow: false,
@@ -787,9 +789,11 @@ $(document).ready(function () {
     fixHeader()
     sloganAnimate()
     initCellAnimate()
-    initAdvantagesAnimation()
-    initDiscoveryAnimation()
-    initializeTestimonialsSlider()
+    setTimeout(() => {
+      initAdvantagesAnimation()
+      initDiscoveryAnimation()
+      initializeTestimonialsSlider()
+    }, 300)
   })
 
   // responsive: [

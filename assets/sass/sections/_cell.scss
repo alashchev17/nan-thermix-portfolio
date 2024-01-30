@@ -1,6 +1,7 @@
 .cell {
   padding-top: 45px;
   position: relative;
+  min-height: 200vh;
   padding-bottom: 20px;
   // overflow-x: hidden;
   &__image {

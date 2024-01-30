@@ -7,7 +7,7 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   z-index: 20;
-  border: 1px solid transparent;
+  border-bottom: 1px solid transparent;
   transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
   &.fixed {
     background-color: var(--white);

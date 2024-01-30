@@ -154,8 +154,13 @@ $x-small: 420px;
       gap: 30px;
     }
   }
+  .cell {
+    min-height: unset;
+  }
   .system {
     $self: &;
+    min-height: unset;
+    padding: 160px 0 110px 0;
     gap: 50px;
     &__container {
       &:nth-child(1) {
@@ -188,6 +193,7 @@ $x-small: 420px;
   }
   .advantages {
     $self: &;
+    padding-bottom: 55px;
     &__title {
       font-size: 100px;
     }
@@ -209,6 +215,7 @@ $x-small: 420px;
     }
   }
   .discovery {
+    min-height: unset;
     &__title {
       font-size: 64px;
       letter-spacing: -1.8px;
