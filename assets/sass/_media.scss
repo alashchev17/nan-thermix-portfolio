@@ -9,9 +9,31 @@ $x-small: 420px;
 
 // fix of animation triggers heights
 @media screen and (max-height: 900px) {
-  .cell,
-  .system {
+  .cell {
     min-height: 250vh;
+  }
+  .system {
+    min-height: 210vh;
+  }
+}
+@media screen and (max-height: 800px) {
+  .cell {
+    min-height: 250vh;
+  }
+  .system,
+  .discovery {
+    min-height: 200vh;
+  }
+}
+@media screen and (max-height: 700px) {
+  .cell {
+    min-height: 250vh;
+  }
+  .system {
+    min-height: 240vh;
+  }
+  .discovery {
+    min-height: 200vh;
   }
 }
 
