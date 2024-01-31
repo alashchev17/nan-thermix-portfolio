@@ -37,10 +37,15 @@ body {
   }
 }
 
+.main {
+  overflow: hidden;
+}
+
 .site-container {
   position: relative;
   height: 100%;
   width: 100%;
+  // overflow-x: hidden;
   &::before {
     content: '';
     position: absolute;
