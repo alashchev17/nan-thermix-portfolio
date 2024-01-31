@@ -77,7 +77,7 @@ $(document).ready(function () {
         scrollTrigger: {
           trigger: '.slogan',
           start: 'bottom bottom',
-          end: 'bottom 25%',
+          end: 'bottom 50%',
           scrub: 1.2,
         },
       })

@@ -20,7 +20,9 @@ $x-small: 420px;
   .cell {
     min-height: 250vh;
   }
-  .system,
+  .system {
+    min-height: 230vh;
+  }
   .discovery {
     min-height: 200vh;
   }
