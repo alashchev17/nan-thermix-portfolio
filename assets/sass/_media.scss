@@ -7,6 +7,14 @@ $medium: 768px;
 $small: 576px;
 $x-small: 420px;
 
+// fix of animation triggers heights
+@media screen and (max-height: 900px) {
+  .cell,
+  .system {
+    min-height: 250vh;
+  }
+}
+
 @media screen and (max-width: $extra-extra-large) {
   .container {
     padding-left: 16px !important;
