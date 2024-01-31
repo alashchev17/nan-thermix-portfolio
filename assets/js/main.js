@@ -13,6 +13,75 @@ $(document).ready(function () {
 
   gsap.ticker.lagSmoothing(0)
 
+  // Anchors
+
+  $('a[href^="#"]').bind('click', function (e) {
+    e.preventDefault()
+    var anchor = $(this)
+    if (anchor.attr('href') !== '#') {
+      const scrollTriggeredSections = ['cell', 'system']
+      let offsetTop = 0
+      // Checking if current anchor contains some of links in scrollTriggeredSections array and if not - setting offset of 90
+      if (
+        !scrollTriggeredSections.some((item) => anchor[0].href.includes(item))
+      ) {
+        offsetTop = 90
+      }
+      $('html')
+        .stop()
+        .animate(
+          {
+            scrollTop: $(anchor.attr('href')).offset().top - offsetTop,
+          },
+          1200
+        )
+    }
+  })
+
+  // Preloader
+
+  function preloaderAnimationFinish() {
+    const preloader = $('.preloader')
+    // gsap logic for preloader to go out
+    function hidePreloader() {
+      preloader.addClass('hidden')
+      setTimeout(() => {
+        $('.site-container').removeClass('overflow')
+        preloader.remove()
+      }, 500)
+    }
+
+    setTimeout(hidePreloader, 2000)
+  }
+
+  // Modal
+  const modalLinks = $('a[data-modal="true"]')
+  const modal = $('.modal')
+  const closeModalButton = $('.modal__close')
+  const modalCheckbox = $('.modal__checkbox-real')
+  const modalCheckboxLabel = $('.modal__checkbox-label')
+  const modalCheckboxCustom = $('.modal__checkbox-custom')
+
+  function revealModal() {
+    modal.removeClass('modal--hidden')
+  }
+  function closeModal() {
+    modal.addClass('modal--hidden')
+  }
+
+  modalCheckboxLabel.on('click', function () {
+    console.log('modalCheckbox changed')
+    modalCheckbox[0].checked
+      ? modalCheckboxCustom.addClass('checked')
+      : modalCheckboxCustom.removeClass('checked')
+  })
+
+  modalLinks.on('click', function (e) {
+    e.preventDefault()
+    revealModal()
+  })
+  closeModalButton.on('click', closeModal)
+
   // Header Variables
   const siteContainer = $('.site-container')
   const header = $('.header')
@@ -48,28 +117,6 @@ $(document).ready(function () {
     }
   }
 
-  // Anchors
-
-  $('a[href^="#"]').bind('click', function (e) {
-    var anchor = $(this)
-    const scrollTriggeredSections = ['cell', 'system']
-    let offsetTop = 0
-    // Checking if current anchor contains some of links in scrollTriggeredSections array and if not - setting offset of 90
-    if (!scrollTriggeredSections.some((item) => anchor[0].href.includes(item))) {
-      offsetTop = 90
-    }
-    $('html')
-      .stop()
-      .animate(
-        {
-          scrollTop: $(anchor.attr('href')).offset().top - offsetTop,
-        },
-        1200
-      )
-
-    e.preventDefault()
-  })
-
   // Slogan
   function sloganAnimate() {
     if ($(window).width() > 768) {
@@ -82,7 +129,9 @@ $(document).ready(function () {
         },
       })
       sloganTl.to('.slogan__title', {
-        x: () => document.documentElement.offsetWidth - document.querySelector('.slogan__title').scrollWidth,
+        x: () =>
+          document.documentElement.offsetWidth -
+          document.querySelector('.slogan__title').scrollWidth,
         ease: 'power3.inOut',
       })
     }
@@ -175,7 +224,10 @@ $(document).ready(function () {
         pin: true,
         pinSpacing: false,
         onUpdate: ({ progress }) => {
-          let currentProgress = Math.ceil((progress * 100) / 20 - 1) >= 0 ? Math.ceil((progress * 100) / 20 - 1) : 0
+          let currentProgress =
+            Math.ceil((progress * 100) / 20 - 1) >= 0
+              ? Math.ceil((progress * 100) / 20 - 1)
+              : 0
           $('.cell__slides').css('height', `${cellSlides[3].offsetHeight}px`)
           cellBullets.removeClass('active')
           cellBullets.eq(currentProgress).addClass('active')
@@ -199,7 +251,10 @@ $(document).ready(function () {
           }
           if (isCellSlideAnimating) return
           isCellSlideAnimating = true
-          $('.cell__slides').css('height', `${cellSlides[index].offsetHeight + 1}px`)
+          $('.cell__slides').css(
+            'height',
+            `${cellSlides[index].offsetHeight + 1}px`
+          )
           cellSlideCounter = index + 1
           $('.cell__wrapper-current').text(cellSlideCounter)
 
@@ -276,7 +331,10 @@ $(document).ready(function () {
           if (nextSlide && nextBullet) {
             cellSlideCounter = Number(nextBullet.data('number')) + 1
             $('.cell__wrapper-current').text(cellSlideCounter)
-            $('.cell__slides').css('height', `${nextSlide[0].offsetHeight + 1}px`)
+            $('.cell__slides').css(
+              'height',
+              `${nextSlide[0].offsetHeight + 1}px`
+            )
 
             currentSlide.removeClass('active')
             gsap.to(currentSlide, {
@@ -368,15 +426,15 @@ $(document).ready(function () {
   }
 
   // System
-  let tlSystem
+  let systemTl
   if ($(window).width() >= 768) {
-    tlSystem = gsap.timeline({
+    systemTl = gsap.timeline({
       defaults: {
         duration: 1,
-        ease: 'power3.out',
+        // ease: 'power3.out',
       },
     })
-    tlSystem
+    systemTl
       .from('.system__title', {
         opacity: 0,
         y: '100%',
@@ -423,17 +481,17 @@ $(document).ready(function () {
       )
     if ($(window).width() >= 1024) {
       ScrollTrigger.create({
-        animation: tlSystem,
+        animation: systemTl,
         trigger: '.system',
         start: 'top 15%',
         end: '+=100%',
         pin: true,
-        scrub: 1.5,
+        scrub: 1.2,
         pinSpacing: false,
       })
     } else {
       ScrollTrigger.create({
-        animation: tlSystem,
+        animation: systemTl,
         trigger: '.system',
         start: 'center 10%',
         end: 'bottom top',
@@ -474,7 +532,10 @@ $(document).ready(function () {
           {
             x: (index) => {
               const marginRight = 10
-              return -$('.advantages__slider-item').outerWidth() * index - (index === 0 ? 0 : marginRight * index)
+              return (
+                -$('.advantages__slider-item').outerWidth() * index -
+                (index === 0 ? 0 : marginRight * index)
+              )
             },
             ease: CustomEase.create(
               'custom',
@@ -506,7 +567,7 @@ $(document).ready(function () {
       ScrollTrigger.create({
         animation: advantagesTl,
         trigger: '.advantages',
-        start: 'top center',
+        start: 'top bottom',
         once: true,
       })
     } else {
@@ -524,8 +585,12 @@ $(document).ready(function () {
         advantagesSlider.slick('unslick')
       }
       advantagesSlider.slick({
-        nextArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--next'),
-        prevArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--prev'),
+        nextArrow: $(
+          '.advantages__slider-controls--desktop .advantages__slider-button--next'
+        ),
+        prevArrow: $(
+          '.advantages__slider-controls--desktop .advantages__slider-button--prev'
+        ),
         infinite: false,
         adaptiveHeight: true,
         draggable: false,
@@ -546,8 +611,12 @@ $(document).ready(function () {
         if (!advantagesSlider.hasClass('slick-initialized')) {
           isReinitializedOnMobile = true
           advantagesSlider.slick({
-            nextArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--next'),
-            prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
+            nextArrow: $(
+              '.advantages__slider-controls--mobile .advantages__slider-button--next'
+            ),
+            prevArrow: $(
+              '.advantages__slider-controls--mobile .advantages__slider-button--prev'
+            ),
             infinite: false,
             adaptiveHeight: true,
             swipe: true,
@@ -840,7 +909,7 @@ $(document).ready(function () {
       ScrollTrigger.create({
         animation: testimonialsTl,
         trigger: '.testimonials',
-        start: 'top center',
+        start: 'top bottom',
         once: true,
       })
     } else {
@@ -858,8 +927,12 @@ $(document).ready(function () {
     }
 
     testimonialsSlider.slick({
-      nextArrow: $('.testimonials__controls--desktop .testimonials__controls-button--next'),
-      prevArrow: $('.testimonials__controls--desktop .testimonials__controls-button--prev'),
+      nextArrow: $(
+        '.testimonials__controls--desktop .testimonials__controls-button--next'
+      ),
+      prevArrow: $(
+        '.testimonials__controls--desktop .testimonials__controls-button--prev'
+      ),
       infinite: true,
       speed: 1000,
       adaptiveHeight: true,
@@ -872,8 +945,12 @@ $(document).ready(function () {
         {
           breakpoint: 769,
           settings: {
-            nextArrow: $('.testimonials__controls--mobile .testimonials__controls-button--next'),
-            prevArrow: $('.testimonials__controls--mobile .testimonials__controls-button--prev'),
+            nextArrow: $(
+              '.testimonials__controls--mobile .testimonials__controls-button--next'
+            ),
+            prevArrow: $(
+              '.testimonials__controls--mobile .testimonials__controls-button--prev'
+            ),
             centerMode: false,
             infinite: false,
             slidesToShow: 1,
@@ -885,7 +962,40 @@ $(document).ready(function () {
     })
   }
 
+  // Footer
+  function initFooterAnimation() {
+    let footerTl = gsap.timeline({
+      defaults: {
+        duration: 1,
+        ease: 'power3.out',
+      },
+    })
+
+    footerTl
+      .from('.footer__outer', {
+        scaleY: 0,
+        transformOrigin: 'center bottom',
+        delay: 0.5,
+      })
+      .from(
+        '.footer__inner',
+        {
+          scaleY: 0,
+          transformOrigin: 'center bottom',
+        },
+        '>25%'
+      )
+    ScrollTrigger.create({
+      animation: footerTl,
+      trigger: '.footer',
+      start: 'top bottom',
+      once: true,
+      // markers: true,
+    })
+  }
+
   $(window).on('load', () => {
+    preloaderAnimationFinish()
     fixHeader()
     sloganAnimate()
     initCellAnimate()
@@ -893,6 +1003,7 @@ $(document).ready(function () {
     initDiscoveryAnimation()
     initializeTestimonialsSlider()
     initTestimonialsAnimation()
+    initFooterAnimation()
   })
 
   $(document).on('scroll', () => {

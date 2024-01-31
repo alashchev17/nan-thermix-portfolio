@@ -22,30 +22,38 @@
   --orange: #ff6d04;
   --gradient-1: linear-gradient(90deg, var(--blue), var(--green));
   --gradient-2: linear-gradient(90deg, #86ceff, #f0d7be);
-  --gradient-3: linear-gradient(90deg, #1987d2 -28.22%, #40bbd6 27.97%, #f0d7be 97.26%);
-  --warm-gradient-1: linear-gradient(86deg, var(--orange) 3.26%, #171276 94.46%);
-  --warm-gradient-4: linear-gradient(271deg, #94bbdf 4.19%, var(--orange) 92.61%);
+  --gradient-3: linear-gradient(
+    90deg,
+    #1987d2 -28.22%,
+    #40bbd6 27.97%,
+    #f0d7be 97.26%
+  );
+  --warm-gradient-1: linear-gradient(
+    86deg,
+    var(--orange) 3.26%,
+    #171276 94.46%
+  );
+  --warm-gradient-4: linear-gradient(
+    271deg,
+    #94bbdf 4.19%,
+    var(--orange) 92.61%
+  );
 }
 
 body {
   font-family: 'Aileron', sans-serif;
   font-weight: 400;
   background-color: #f2f2f2;
-  &.overflow {
-    overflow-y: hidden;
-    height: 100vh;
-  }
 }
 
 .main {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .site-container {
   position: relative;
   height: 100%;
   width: 100%;
-  // overflow-x: hidden;
   &::before {
     content: '';
     position: absolute;
@@ -61,7 +69,7 @@ body {
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
   }
-  &.overflow {
+  &.menu {
     overflow-y: hidden;
     &::before {
       opacity: 1;
@@ -69,6 +77,11 @@ body {
       z-index: 50;
     }
   }
+}
+
+.overflow {
+  overflow-y: hidden;
+  height: 100vh;
 }
 
 .container {
@@ -104,4 +117,10 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+input {
+  background: unset;
+  border: none;
+  outline: none;
 }
