@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-.spacer {
-  height: 100vh;
-}
-
 :root {
   --background: #f6f7f8;
   --white: #ffffff;
@@ -47,7 +43,7 @@ body {
 }
 
 .main {
-  overflow-x: hidden;
+  // overflow: hidden;
 }
 
 .site-container {
@@ -69,7 +65,7 @@ body {
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
   }
-  &.menu {
+  &.overlayed {
     overflow-y: hidden;
     &::before {
       opacity: 1;

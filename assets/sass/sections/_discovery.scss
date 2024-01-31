@@ -30,7 +30,11 @@
       background-clip: padding-box;
       border: solid $border transparent;
       border-radius: 1000px;
-      --warm-gradient-4: linear-gradient(91deg, #94bbdf 4.19%, var(--orange) 92.61%);
+      --warm-gradient-4: linear-gradient(
+        91deg,
+        #94bbdf 4.19%,
+        var(--orange) 92.61%
+      );
       &:before {
         content: '';
         position: absolute;

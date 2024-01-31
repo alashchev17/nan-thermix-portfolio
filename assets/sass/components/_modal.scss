@@ -8,6 +8,9 @@
   opacity: 1;
   visibility: visible;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  &--dnone {
+    display: none;
+  }
   &--hidden {
     opacity: 0;
     visibility: hidden;

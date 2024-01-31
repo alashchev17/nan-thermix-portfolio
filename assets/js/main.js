@@ -13,31 +13,6 @@ $(document).ready(function () {
 
   gsap.ticker.lagSmoothing(0)
 
-  // Anchors
-
-  $('a[href^="#"]').bind('click', function (e) {
-    e.preventDefault()
-    var anchor = $(this)
-    if (anchor.attr('href') !== '#') {
-      const scrollTriggeredSections = ['cell', 'system']
-      let offsetTop = 0
-      // Checking if current anchor contains some of links in scrollTriggeredSections array and if not - setting offset of 90
-      if (
-        !scrollTriggeredSections.some((item) => anchor[0].href.includes(item))
-      ) {
-        offsetTop = 90
-      }
-      $('html')
-        .stop()
-        .animate(
-          {
-            scrollTop: $(anchor.attr('href')).offset().top - offsetTop,
-          },
-          1200
-        )
-    }
-  })
-
   // Preloader
 
   function preloaderAnimationFinish() {
@@ -55,7 +30,7 @@ $(document).ready(function () {
   }
 
   // Modal
-  const modalLinks = $('a[data-modal="true"]')
+  const modalLinks = $('[data-modal="true"]')
   const modal = $('.modal')
   const closeModalButton = $('.modal__close')
   const modalCheckbox = $('.modal__checkbox-real')
@@ -63,10 +38,16 @@ $(document).ready(function () {
   const modalCheckboxCustom = $('.modal__checkbox-custom')
 
   function revealModal() {
-    modal.removeClass('modal--hidden')
+    modal.removeClass('modal--dnone')
+    setTimeout(() => {
+      modal.removeClass('modal--hidden')
+    }, 300)
   }
   function closeModal() {
     modal.addClass('modal--hidden')
+    setTimeout(() => {
+      modal.addClass('modal--dnone')
+    }, 300)
   }
 
   modalCheckboxLabel.on('click', function () {
@@ -82,6 +63,12 @@ $(document).ready(function () {
   })
   closeModalButton.on('click', closeModal)
 
+  $('.modal').on('click', function (e) {
+    if ($(event.target).is($('.modal__wrapper'))) {
+      closeModal()
+    }
+  })
+
   // Header Variables
   const siteContainer = $('.site-container')
   const header = $('.header')
@@ -93,19 +80,19 @@ $(document).ready(function () {
   burgerButton.on('click', (event) => {
     event.preventDefault()
     menu.addClass('active')
-    siteContainer.addClass('overflow')
+    siteContainer.addClass('overlayed')
   })
 
   closeBurgerButton.on('click', (event) => {
     event.preventDefault()
     menu.removeClass('active')
-    siteContainer.removeClass('overflow')
+    siteContainer.removeClass('overlayed')
   })
 
   siteContainer.on('click', (event) => {
-    if ($(event.target).is(siteContainer)) {
+    if ($(event.target).is(siteContainer) && menu.hasClass('active')) {
       menu.removeClass('active')
-      siteContainer.removeClass('overflow')
+      siteContainer.removeClass('overlayed')
     }
   })
 
@@ -116,6 +103,42 @@ $(document).ready(function () {
       header.addClass('fixed')
     }
   }
+
+  // Anchors
+
+  $('a[href^="#"]').bind('click', function (e) {
+    e.preventDefault()
+    var anchor = $(this)
+    if (anchor.attr('href') !== '#') {
+      const scrollTriggeredSections = ['cell', 'system']
+      let offsetTop = 0
+      // Checking if current anchor contains some of links in scrollTriggeredSections array and if not - setting offset of 90
+      function smoothAnimate() {
+        $('html')
+          .stop()
+          .animate(
+            {
+              scrollTop: $(anchor.attr('href')).offset().top - offsetTop,
+            },
+            1200
+          )
+      }
+      if (
+        !scrollTriggeredSections.some((item) => anchor[0].href.includes(item))
+      ) {
+        offsetTop = 90
+      }
+      if (menu.hasClass('active')) {
+        setTimeout(() => {
+          menu.removeClass('active')
+          siteContainer.removeClass('overlayed')
+        }, 300)
+        setTimeout(smoothAnimate, 600)
+        return
+      }
+      smoothAnimate()
+    }
+  })
 
   // Slogan
   function sloganAnimate() {
@@ -219,7 +242,7 @@ $(document).ready(function () {
         animation: cellTl,
         trigger: '.cell',
         start: 'top 10%',
-        end: '+=100%',
+        end: () => `+=${$('.cell').height() - $(window).height()}`,
         scrub: 1.5,
         pin: true,
         pinSpacing: false,
@@ -484,7 +507,7 @@ $(document).ready(function () {
         animation: systemTl,
         trigger: '.system',
         start: 'top 15%',
-        end: '+=100%',
+        end: () => `+=${$('.system').height() - $(window).height()}`,
         pin: true,
         scrub: 1.2,
         pinSpacing: false,
@@ -700,7 +723,7 @@ $(document).ready(function () {
         animation: discoveryTl,
         trigger: '.discovery',
         start: 'top 10%',
-        end: '+=100%',
+        end: () => `+=${$('.discovery').height() - $(window).height()}`,
         pin: true,
         scrub: 1.5,
         pinSpacing: false,
@@ -753,6 +776,9 @@ $(document).ready(function () {
     ],
   })
 
+  /* functionality of click on applicationSlider
+  *
+  *
   const applicationsSliderItemBodies = $('.applications__slider-item-body')
   const applicationsSliderItemInners = $('.applications__slider-item-inner')
   $('.applications__slider-item-more').each(function (index, item) {
@@ -837,6 +863,9 @@ $(document).ready(function () {
       }, 400)
     })
   })
+  *
+  *
+  */
 
   // Testimonials
   function initTestimonialsAnimation() {
