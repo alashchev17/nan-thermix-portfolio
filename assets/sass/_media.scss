@@ -246,6 +246,91 @@ $x-small: 420px;
       }
     }
   }
+  .footer {
+    &__partners {
+      &--desktop {
+        padding: 18px 34px;
+        justify-content: space-between;
+        gap: unset;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .footer {
+    &__partners {
+      &--desktop {
+        display: none;
+      }
+      &--mobile {
+        position: relative;
+        display: flex;
+      }
+    }
+    &__logo {
+      margin-bottom: unset;
+    }
+    &__link {
+      &:last-child {
+        margin-top: unset;
+      }
+    }
+    &__outer {
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px;
+    }
+    &__inner {
+      $self: &;
+      &--desktop {
+        display: none;
+      }
+      &--mobile {
+        padding: 30px 0;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+        display: flex;
+        #{$self}-column {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          &:first-child {
+            margin-bottom: 100px;
+          }
+          &:nth-child(2) {
+            margin-bottom: 50px;
+          }
+        }
+      }
+    }
+    &__address {
+      max-width: 36%;
+      text-align: right;
+      color: var(--gray);
+    }
+    &__mark {
+      left: 15px;
+      top: -28px;
+      padding: 6px 30px;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 120%; /* 16.8px */
+      letter-spacing: -0.14px;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+    }
+    &__link {
+      &-contact {
+        font-size: 56px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 100%; /* 56px */
+        letter-spacing: -2.24px;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: $medium) {
@@ -652,6 +737,27 @@ $x-small: 420px;
   }
   .testimonials {
     padding: 70px 0;
+  }
+  .footer {
+    &__outer {
+      border-top-right-radius: unset;
+      border-top-left-radius: unset;
+    }
+    &__partners {
+      &--mobile {
+        padding: 30px 0;
+      }
+    }
+    &__mark {
+      padding: 10px 15px;
+      top: -30px;
+      left: 0;
+    }
+    &__address {
+      font-size: 14px;
+      line-height: 120%; /* 16.8px */
+      letter-spacing: -0.14px;
+    }
   }
 }
 

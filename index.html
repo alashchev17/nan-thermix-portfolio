@@ -19,7 +19,7 @@
     <div class="site-container">
       <header class="header">
         <div class="container header__container">
-          <a href="/" class="logo header__logo">
+          <a href="#hero" class="logo header__logo">
             <img class="logo__image" src="./assets/images/logo.svg" alt="Logo: NanThermix" />
           </a>
           <nav class="nav header__nav">
@@ -28,19 +28,19 @@
             </a>
             <ul class="nav__list">
               <li class="nav__item">
-                <a href="#" class="nav__link">About</a>
+                <a href="#cell" class="nav__link">Science</a>
               </li>
               <li class="nav__item">
-                <a href="#" class="nav__link">Science</a>
+                <a href="#system" class="nav__link">Technology</a>
               </li>
               <li class="nav__item">
-                <a href="#" class="nav__link">Technology</a>
+                <a href="#advantages" class="nav__link">Advantages</a>
               </li>
               <li class="nav__item">
-                <a href="#" class="nav__link">Applications</a>
+                <a href="#applications" class="nav__link">Applications</a>
               </li>
               <li class="nav__item">
-                <a href="#" class="nav__link">Contacts</a>
+                <a href="#testimonials" class="nav__link">Testimonials</a>
               </li>
             </ul>
           </nav>
@@ -63,19 +63,19 @@
         </a>
         <ul class="menu__list">
           <li class="menu__item">
-            <a href="#" class="menu__link">About</a>
+            <a href="#cell" class="menu__link">Science</a>
           </li>
           <li class="menu__item">
-            <a href="#" class="menu__link">Science</a>
+            <a href="#system" class="menu__link">Technology</a>
           </li>
           <li class="menu__item">
-            <a href="#" class="menu__link">Technology</a>
+            <a href="#advantages" class="menu__link">Advantages</a>
           </li>
           <li class="menu__item">
-            <a href="#" class="menu__link">Applications</a>
+            <a href="#applications" class="menu__link">Applications</a>
           </li>
           <li class="menu__item">
-            <a href="#" class="menu__link">Contacts</a>
+            <a href="#testimonials" class="menu__link">Testimonials</a>
           </li>
         </ul>
         <a href="#" class="button button--primary menu__button">
@@ -90,7 +90,7 @@
         </a>
       </aside>
       <main class="main">
-        <section class="hero">
+        <section class="hero" id="hero">
           <div class="container hero__container">
             <div class="hero__content">
               <div class="hero__information">
@@ -234,7 +234,7 @@
             </div>
           </div>
         </section>
-        <section class="system">
+        <section class="system" id="system">
           <div class="container system__container">
             <div class="system__column system__column--left">
               <h2 class="title-h2 system__title">A Ready-To-Use System</h2>
@@ -457,7 +457,7 @@
             </div>
           </div>
         </section>
-        <section class="applications">
+        <section class="applications" id="applications">
           <div class="container applications__container">
             <div class="applications__header">
               <h2 class="title-h1 applications__title">Applications</h2>
@@ -697,7 +697,7 @@
             </div>
           </div>
         </section>
-        <section class="testimonials">
+        <section class="testimonials" id="testimonials">
           <div class="container testimonials__container">
             <div class="testimonials__header">
               <h2 class="title-h2 testimonials__title">Testimonials</h2>
@@ -751,9 +751,9 @@
                   &laquo;The project has been recognized as TOP-100 "opening new horizons" of 2023 by the leading EU program Human Science
                   Frontier, focused on supporting breakthrough projects in life sciences.&raquo;
                 </p>
-                <!-- <span class="text-small testimonials__comment">
-                  Rajnish Ranjan, PhD, EPFL – Blue Brain Project Maurizzio Pezzoli, PhD, EPFL – Blue Brain Project
-                </span> -->
+                <span class="text-small testimonials__comment">
+                  The HSFP is a program of funding for frontier research in the life sciences.
+                </span>
               </div>
               <div class="testimonials__slider-item">
                 <div class="testimonials__logo">
@@ -776,7 +776,150 @@
         </section>
       </main>
       <footer class="footer">
-        <div class="container footer__container"></div>
+        <div class="footer__outer">
+          <div class="container footer__container">
+            <div class="footer__partners footer__partners--desktop">
+              <span class="footer__mark">Supported by</span>
+              <img
+                src="./assets/images/partners/innovaud.png"
+                alt="Logo: Innovaud's Logotype"
+                class="footer__partners-image"
+                width="225.519"
+                height="28.377"
+              />
+              <img
+                src="./assets/images/partners/hfsp.png"
+                alt="Logo: HFSP's Logotype"
+                class="footer__partners-image"
+                width="150"
+                height="47"
+              />
+              <img
+                src="./assets/images/partners/epfl.svg"
+                alt="Logo: EPFL's Logotype"
+                class="footer__partners-image"
+                width="100"
+                height="30"
+              />
+              <img
+                src="./assets/images/partners/bern.png"
+                alt="Logo: Universitat Bern's Logotype"
+                class="footer__partners-image"
+                width="152"
+                height="44"
+              />
+            </div>
+            <div class="footer__partners footer__partners--mobile">
+              <span class="footer__mark">Supported by</span>
+
+              <img
+                src="./assets/images/partners/hfsp-mobile.svg"
+                alt="Logo: HFSP's Mobile Logotype"
+                class="footer__partners-image"
+                width="45"
+                height="44"
+              />
+              <img
+                src="./assets/images/partners/epfl.svg"
+                alt="Logo: EPFL's Mobile Logotype"
+                class="footer__partners-image"
+                width="62"
+                height="19"
+              />
+              <img
+                src="./assets/images/partners/bern.png"
+                alt="Logo: Universitat Bern's Mobile Logotype"
+                class="footer__partners-image"
+                width="35"
+                height="39"
+              />
+              <img
+                src="./assets/images/partners/innovaud.png"
+                alt="Logo: Innovaud's Mobile Logotype"
+                class="footer__partners-image"
+                width="138"
+                height="17"
+              />
+            </div>
+          </div>
+          <div class="footer__inner footer__inner--desktop">
+            <div class="container footer__container">
+              <div class="footer__inner-column">
+                <a href="#hero" class="logo footer__logo">
+                  <img class="logo__image" src="./assets/images/logo-dark.svg" alt="Logo: NanThermix" />
+                </a>
+                <a href="#" class="footer__link-contact" data-modal="contact">
+                  Contact Us
+                  <div class="footer__link-open">
+                    <svg class="svg" viewBox="0 0 34 34">
+                      <use xlink:href="./assets/images/sprite.svg#open-link"></use>
+                    </svg>
+                  </div>
+                </a>
+              </div>
+              <div class="footer__inner-column">
+                <nav class="nav footer__nav">
+                  <span class="footer__nav-header">About</span>
+                  <ul class="footer__list">
+                    <li class="footer__list-item"><a href="#cell" class="text-small footer__link">Science</a></li>
+                    <li class="footer__list-item"><a href="#system" class="text-small footer__link">Technology</a></li>
+                    <li class="footer__list-item"><a href="#advantages" class="text-small footer__link">Advantages</a></li>
+                    <li class="footer__list-item"><a href="#applications" class="text-small footer__link">Applications</a></li>
+                    <li class="footer__list-item"><a href="#testimonials" class="text-small footer__link">Testimonials</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="footer__inner-column">
+                <nav class="nav footer__nav">
+                  <span class="footer__nav-header">Contacts</span>
+                  <ul class="footer__list">
+                    <li class="footer__list-item">
+                      <span class="text-small">EPFL Innovation Park, Lausanne, Switzerland</span>
+                    </li>
+                    <li class="footer__list-item"><a href="tel:+41795260901" class="text-small footer__link">+41795260901</a></li>
+                  </ul>
+                  <a href="mailto:natalia@nanthermix.com" class="text-small footer__link footer__link--active">natalia@nanthermix.com</a>
+                </nav>
+              </div>
+              <div class="footer__inner-colum">
+                <a href="#" class="footer__link footer__link--dark">Privacy Policy</a>
+              </div>
+            </div>
+          </div>
+          <div class="footer__inner footer__inner--mobile">
+            <div class="container footer__container">
+              <div class="footer__inner-column">
+                <a href="#hero" class="logo footer__logo">
+                  <img class="logo__image" src="./assets/images/logo-dark.svg" alt="Logo: NanThermix" />
+                </a>
+                <a href="#" class="footer__link footer__link--dark">Privacy Policy</a>
+              </div>
+              <div class="footer__inner-column">
+                <a href="#" class="footer__link-contact" data-modal="contact">
+                  Contact Us
+                  <div class="footer__link-open">
+                    <svg class="svg" viewBox="0 0 34 34">
+                      <use xlink:href="./assets/images/sprite.svg#open-link"></use>
+                    </svg>
+                  </div>
+                </a>
+              </div>
+              <div class="footer__inner-column footer__inner-column">
+                <nav class="nav footer__nav">
+                  <ul class="footer__list">
+                    <li class="footer__list-item"><a href="tel:+41795260901" class="text-small footer__link">+41795260901</a></li>
+                    <li class="footer__list-item">
+                      <a href="mailto:natalia@nanthermix.com" class="text-small footer__link footer__link--active"
+                        >natalia@nanthermix.com</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <span class="text-small footer__address">EPFL Innovation Park, Lausanne, Switzerland</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
     <script src="./assets/libs/jquery-3.6.4.min.js"></script>

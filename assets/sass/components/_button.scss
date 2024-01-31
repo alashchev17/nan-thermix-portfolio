@@ -43,13 +43,12 @@
   }
   &--secondary {
     color: var(--black);
-    padding: 16px 20px;
     display: flex;
     align-items: center;
     gap: 10px;
     border: 2px solid var(--black);
     background-color: transparent;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     .icon {
       svg {
         transition: stroke 0.3s ease-in-out;
@@ -57,8 +56,10 @@
       }
     }
     &:hover {
-      background-color: var(--black);
+      border-color: var(--orange);
+      background-color: var(--orange);
       color: var(--white);
+      box-shadow: 0px 6px 25px 0px rgba(255, 109, 4, 0.35);
       .icon {
         svg {
           stroke: var(--white);

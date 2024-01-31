@@ -48,6 +48,28 @@ $(document).ready(function () {
     }
   }
 
+  // Anchors
+
+  $('a[href^="#"]').bind('click', function (e) {
+    var anchor = $(this)
+    const scrollTriggeredSections = ['cell', 'system']
+    let offsetTop = 0
+    // Checking if current anchor contains some of links in scrollTriggeredSections array and if not - setting offset of 90
+    if (!scrollTriggeredSections.some((item) => anchor[0].href.includes(item))) {
+      offsetTop = 90
+    }
+    $('html')
+      .stop()
+      .animate(
+        {
+          scrollTop: $(anchor.attr('href')).offset().top - offsetTop,
+        },
+        1200
+      )
+
+    e.preventDefault()
+  })
+
   // Slogan
   function sloganAnimate() {
     if ($(window).width() > 768) {
