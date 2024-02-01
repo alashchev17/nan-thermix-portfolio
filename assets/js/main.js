@@ -19,8 +19,71 @@ $(document).ready(function () {
     const preloader = $('.preloader')
     const preloaderOuterFrame = $('.preloader__loading-outer')
     const preloaderInnerFrame = $('.preloader__loading-inner')
-    const preloaderLogo = $('.preloader__loading-logo')
-    // gsap logic for preloader to go out
+    const preloaderIcon = $('.preloader__loading-icon')
+    const preloaderText = $('.preloader__loading-text')
+
+    let preloaderTl = gsap.timeline({
+      defaults: {
+        duration: 0.7,
+      },
+    })
+
+    preloaderTl
+      .to(preloaderOuterFrame[0], {
+        scale: 0,
+        opacity: 0,
+        animation: 'unset',
+      })
+      .to(
+        preloaderInnerFrame[0],
+        {
+          scale: 0,
+          opacity: 0,
+          animation: 'unset',
+        },
+        '<75%'
+      )
+      .to(
+        preloaderIcon[0],
+        {
+          scale: 1,
+          animation: 'unset',
+          duration: 0.3,
+        },
+        '>'
+      )
+      .to(
+        preloaderIcon[0],
+        {
+          x: 20,
+          opacity: 0.6,
+        },
+        '<90%'
+      )
+      .to(
+        preloaderIcon[0],
+        {
+          opacity: 1,
+          x: () =>
+            -document.querySelector('.preloader__loading-icon').offsetLeft,
+          duration: 0.5,
+        },
+        '>25%'
+      )
+      .to(
+        preloaderText[0],
+        {
+          opacity: 1,
+          x: () =>
+            document.querySelector('.preloader__loading-logo').offsetWidth -
+            document.querySelector('.preloader__loading-text').scrollWidth,
+          onComplete: () => {
+            setTimeout(hidePreloader, 700)
+          },
+        },
+        '<75%'
+      )
+
     function hidePreloader() {
       preloader.addClass('hidden')
       setTimeout(() => {
@@ -28,8 +91,6 @@ $(document).ready(function () {
         preloader.remove()
       }, 500)
     }
-
-    setTimeout(hidePreloader, 300)
   }
 
   // Modal
@@ -101,6 +162,9 @@ $(document).ready(function () {
         required: true,
         minlength: 20,
       },
+      checkbox: {
+        required: true,
+      },
     },
     messages: {
       name: {
@@ -127,7 +191,6 @@ $(document).ready(function () {
       form.submit()
     },
   })
-  console.log(modalValidateInstance)
 
   // Header Variables
   const siteContainer = $('.site-container')

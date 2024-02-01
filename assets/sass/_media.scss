@@ -374,6 +374,30 @@ $x-small: 420px;
 }
 
 @media screen and (max-width: $medium) {
+  .preloader {
+    &__loading {
+      &-outer {
+        width: calc(645px / 2);
+        height: calc(665px / 2);
+      }
+      &-inner {
+        width: calc(322px / 2);
+        height: calc(322px / 2);
+      }
+      &-logo {
+        width: calc(352px / 2);
+        height: calc(80px / 2);
+      }
+      &-icon {
+        width: calc(85px / 2);
+        height: calc(80px / 2);
+      }
+      &-text {
+        width: calc(241px / 2);
+        height: calc(34px / 2);
+      }
+    }
+  }
   .modal {
     $self: &;
     &__body {
