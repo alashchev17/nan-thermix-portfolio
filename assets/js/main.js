@@ -1147,7 +1147,7 @@ $(document).ready(function () {
   }
 
   $(window).on('load', () => {
-    preloaderAnimationFinish()
+    setTimeout(preloaderAnimationFinish, 2500)
     fixHeader()
     sloganAnimate()
     initCellAnimate()
