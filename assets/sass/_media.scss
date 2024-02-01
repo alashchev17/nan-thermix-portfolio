@@ -163,6 +163,11 @@ $x-small: 420px;
 }
 
 @media screen and (max-width: $extra-large) {
+  .modal {
+    &__body {
+      max-width: 80%;
+    }
+  }
   .site-container {
     overflow: hidden;
   }
@@ -369,6 +374,42 @@ $x-small: 420px;
 }
 
 @media screen and (max-width: $medium) {
+  .modal {
+    $self: &;
+    &__body {
+      padding: 24px;
+    }
+    &__form {
+      align-items: unset;
+      &-button {
+        .button__content {
+          width: 100%;
+          gap: unset;
+          justify-content: space-between;
+        }
+      }
+    }
+    &__content {
+      &-row {
+        &:first-child {
+          flex-direction: column;
+          gap: 32px;
+          #{$self}__input {
+            width: 100%;
+            max-width: unset;
+            &:last-child {
+              margin-top: unset;
+            }
+          }
+        }
+      }
+    }
+    &__close {
+      width: 20px;
+      height: 20px;
+      padding: 30px;
+    }
+  }
   .descr {
     &-small {
       font-size: 18px;
@@ -628,7 +669,21 @@ $x-small: 420px;
   }
 }
 
+@media screen and (max-width: $small), screen and (max-height: 600px) {
+  .modal {
+    &__body {
+      max-height: 80%;
+    }
+  }
+}
+
 @media screen and (max-width: $small) {
+  .modal {
+    &__body {
+      max-width: calc(100% - 32px);
+      overflow: auto;
+    }
+  }
   .title-h1 {
     font-size: 46px;
     font-style: normal;

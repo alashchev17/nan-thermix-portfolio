@@ -17,6 +17,9 @@ $(document).ready(function () {
 
   function preloaderAnimationFinish() {
     const preloader = $('.preloader')
+    const preloaderOuterFrame = $('.preloader__loading-outer')
+    const preloaderInnerFrame = $('.preloader__loading-inner')
+    const preloaderLogo = $('.preloader__loading-logo')
     // gsap logic for preloader to go out
     function hidePreloader() {
       preloader.addClass('hidden')
@@ -26,12 +29,13 @@ $(document).ready(function () {
       }, 500)
     }
 
-    setTimeout(hidePreloader, 2000)
+    setTimeout(hidePreloader, 300)
   }
 
   // Modal
   const modalLinks = $('[data-modal="true"]')
   const modal = $('.modal')
+  const modalForm = $('.modal__form')
   const closeModalButton = $('.modal__close')
   const modalCheckbox = $('.modal__checkbox-real')
   const modalCheckboxLabel = $('.modal__checkbox-label')
@@ -68,6 +72,62 @@ $(document).ready(function () {
       closeModal()
     }
   })
+
+  const modalValidateInstance = modalForm.validate({
+    errorClass: 'error',
+    errorPlacement: function (error, element) {}, // отключаем создание <label>, которые генерирует плагин
+    rules: {
+      name: {
+        required: true,
+        minlength: 3,
+      },
+      lastName: {
+        required: true,
+        minlength: 3,
+      },
+      email: {
+        required: true,
+        email: true,
+      },
+      phone: {
+        required: true,
+        digits: true,
+      },
+      organization: {
+        required: true,
+        minlength: 3,
+      },
+      message: {
+        required: true,
+        minlength: 20,
+      },
+    },
+    messages: {
+      name: {
+        required: '',
+      },
+      lastName: {
+        required: '',
+      },
+      email: {
+        required: '',
+      },
+      phone: {
+        required: '',
+      },
+      organization: {
+        required: '',
+      },
+      message: {
+        required: '',
+      },
+    },
+    submitHandler: function (form) {
+      // если валидация прошла успешно, то форма отправляется
+      form.submit()
+    },
+  })
+  console.log(modalValidateInstance)
 
   // Header Variables
   const siteContainer = $('.site-container')
