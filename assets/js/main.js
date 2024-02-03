@@ -433,62 +433,58 @@ $(document).ready(function () {
             nextSlide = currentSlide.prev().length !== 0 ? currentSlide.prev() : null
             nextBullet = currentBullet.prev().length !== 0 ? currentBullet.prev() : null
           }
-
-          console.warn('nextBullet[0]: ', nextBullet)
-          console.warn('nextSlide[0]: ', nextSlide)
           if (!nextSlide && !nextBullet) {
-            console.warn('nextSlide and nextBullet are undefined!')
             isCellSlideAnimating = false
-          } else {
-            cellSlideCounter = Number(nextBullet.data('number')) + 1
-            $('.cell__wrapper-current').text(cellSlideCounter)
-            $('.cell__slides').css('height', `${nextSlide[0].offsetHeight + 1}px`)
+            return false
+          }
+          cellSlideCounter = Number(nextBullet.data('number')) + 1
+          $('.cell__wrapper-current').text(cellSlideCounter)
+          $('.cell__slides').css('height', `${nextSlide[0].offsetHeight + 1}px`)
 
-            currentSlide.removeClass('active')
-            gsap.to(currentSlide, {
-              opacity: 0,
-              ease: 'power3.out',
-            })
-            currentBullet.removeClass('active')
+          currentSlide.removeClass('active')
+          gsap.to(currentSlide, {
+            opacity: 0,
+            ease: 'power3.out',
+          })
+          currentBullet.removeClass('active')
 
-            setTimeout(() => {
-              nextSlide.addClass('active')
+          setTimeout(() => {
+            nextSlide.addClass('active')
+            gsap.fromTo(
+              nextSlide,
+              {
+                opacity: 0,
+                y: 20,
+              },
+              {
+                opacity: 1,
+                y: 0,
+                ease: 'power3.out',
+                delay: 0.5,
+                onComplete: () => {
+                  isCellSlideAnimating = false
+                },
+              }
+            )
+            if (nextBullet.data('number') == '4') {
               gsap.fromTo(
-                nextSlide,
+                '.cell__button',
                 {
                   opacity: 0,
-                  y: 20,
                 },
                 {
                   opacity: 1,
-                  y: 0,
                   ease: 'power3.out',
-                  delay: 0.5,
+                  delay: 1,
                   onComplete: () => {
                     isCellSlideAnimating = false
                   },
                 }
               )
-              if (nextBullet.data('number') == '4') {
-                gsap.fromTo(
-                  '.cell__button',
-                  {
-                    opacity: 0,
-                  },
-                  {
-                    opacity: 1,
-                    ease: 'power3.out',
-                    delay: 1,
-                    onComplete: () => {
-                      isCellSlideAnimating = false
-                    },
-                  }
-                )
-              }
+            }
 
-              nextBullet.addClass('active')
-            }, 300)
-          }
+            nextBullet.addClass('active')
+          }, 300)
         }
         return false
       }
@@ -517,10 +513,8 @@ $(document).ready(function () {
         if (Math.abs(xDiff) > Math.abs(yDiff)) {
           if (xDiff > 0) {
             swipeSlide('right')
-            console.log('swipe to right')
           } else {
             swipeSlide('left')
-            console.log('swipe to left')
           }
         } else {
           if (yDiff > 0) {
