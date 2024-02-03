@@ -64,8 +64,7 @@ $(document).ready(function () {
         preloaderIcon[0],
         {
           opacity: 1,
-          x: () =>
-            -document.querySelector('.preloader__loading-icon').offsetLeft,
+          x: () => -document.querySelector('.preloader__loading-icon').offsetLeft,
           duration: 0.5,
         },
         '>25%'
@@ -75,8 +74,7 @@ $(document).ready(function () {
         {
           opacity: 1,
           x: () =>
-            document.querySelector('.preloader__loading-logo').offsetWidth -
-            document.querySelector('.preloader__loading-text').scrollWidth,
+            document.querySelector('.preloader__loading-logo').offsetWidth - document.querySelector('.preloader__loading-text').scrollWidth,
           onComplete: () => {
             setTimeout(hidePreloader, 700)
           },
@@ -95,101 +93,73 @@ $(document).ready(function () {
 
   // Modal
   const modalLinks = $('[data-modal="true"]')
-  const modal = $('.modal')
-  const modalForm = $('.modal__form')
+  const contactsModal = $('.modal#contacts-modal')
+  const thankYouModal = $('.modal#thank-you-modal')
+  const contactsModalForm = $('.modal__form')
   const closeModalButton = $('.modal__close')
   const modalCheckbox = $('.modal__checkbox-real')
   const modalCheckboxLabel = $('.modal__checkbox-label')
   const modalCheckboxCustom = $('.modal__checkbox-custom')
+  let isFormSuccess = false
 
-  function revealModal() {
-    modal.removeClass('modal--dnone')
+  function revealModal(isFormSuccess) {
+    if (!isFormSuccess) {
+      contactsModal.removeClass('modal--dnone')
+      setTimeout(() => {
+        contactsModal.removeClass('modal--hidden')
+      }, 300)
+      return
+    }
+    thankYouModal.removeClass('modal--dnone')
     setTimeout(() => {
-      modal.removeClass('modal--hidden')
+      thankYouModal.removeClass('modal--hidden')
     }, 300)
   }
-  function closeModal() {
-    modal.addClass('modal--hidden')
+  function closeModal(isFormSuccess) {
+    if (!isFormSuccess) {
+      contactsModal.addClass('modal--hidden')
+      setTimeout(() => {
+        contactsModal.addClass('modal--dnone')
+        $('.modal#contacts-modal input').val('')
+      }, 300)
+      return
+    }
+    thankYouModal.addClass('modal--hidden')
     setTimeout(() => {
-      modal.addClass('modal--dnone')
+      thankYouModal.addClass('modal--dnone')
     }, 300)
   }
 
   modalCheckboxLabel.on('click', function () {
-    console.log('modalCheckbox changed')
-    modalCheckbox[0].checked
-      ? modalCheckboxCustom.addClass('checked')
-      : modalCheckboxCustom.removeClass('checked')
+    modalCheckbox[0].checked ? modalCheckboxCustom.addClass('checked') : modalCheckboxCustom.removeClass('checked')
   })
 
   modalLinks.on('click', function (e) {
     e.preventDefault()
-    revealModal()
+    revealModal(isFormSuccess)
   })
-  closeModalButton.on('click', closeModal)
+  closeModalButton.on('click', function (e) {
+    closeModal(isFormSuccess)
+  })
 
   $('.modal').on('click', function (e) {
-    if ($(event.target).is($('.modal__wrapper'))) {
-      closeModal()
+    if ($(e.target).is($('.modal__wrapper'))) {
+      closeModal(isFormSuccess)
     }
   })
 
-  const modalValidateInstance = modalForm.validate({
-    errorClass: 'error',
-    errorPlacement: function (error, element) {}, // отключаем создание <label>, которые генерирует плагин
-    rules: {
-      name: {
-        required: true,
-        minlength: 3,
-      },
-      lastName: {
-        required: true,
-        minlength: 3,
-      },
-      email: {
-        required: true,
-        email: true,
-      },
-      phone: {
-        required: true,
-        digits: true,
-      },
-      organization: {
-        required: true,
-        minlength: 3,
-      },
-      message: {
-        required: true,
-        minlength: 20,
-      },
-      checkbox: {
-        required: true,
-      },
-    },
-    messages: {
-      name: {
-        required: '',
-      },
-      lastName: {
-        required: '',
-      },
-      email: {
-        required: '',
-      },
-      phone: {
-        required: '',
-      },
-      organization: {
-        required: '',
-      },
-      message: {
-        required: '',
-      },
-    },
-    submitHandler: function (form) {
-      // если валидация прошла успешно, то форма отправляется
-      form.submit()
-    },
+  contactsModalForm.on('submit', function (e) {
+    e.preventDefault()
+    closeModal(isFormSuccess)
+    isFormSuccess = !isFormSuccess
+    revealModal(isFormSuccess)
+    setTimeout(() => {
+      if (!thankYouModal.hasClass('modal--hidden')) {
+        console.warn('turning form off strictly')
+        closeModal(isFormSuccess)
+      }
+      isFormSuccess = !isFormSuccess
+    }, 10000)
   })
 
   // Header Variables
@@ -246,9 +216,7 @@ $(document).ready(function () {
             1200
           )
       }
-      if (
-        !scrollTriggeredSections.some((item) => anchor[0].href.includes(item))
-      ) {
+      if (!scrollTriggeredSections.some((item) => anchor[0].href.includes(item))) {
         offsetTop = 90
       }
       if (menu.hasClass('active')) {
@@ -275,9 +243,7 @@ $(document).ready(function () {
         },
       })
       sloganTl.to('.slogan__title', {
-        x: () =>
-          document.documentElement.offsetWidth -
-          document.querySelector('.slogan__title').scrollWidth,
+        x: () => document.documentElement.offsetWidth - document.querySelector('.slogan__title').scrollWidth,
         ease: 'power3.inOut',
       })
     }
@@ -370,10 +336,7 @@ $(document).ready(function () {
         pin: true,
         pinSpacing: false,
         onUpdate: ({ progress }) => {
-          let currentProgress =
-            Math.ceil((progress * 100) / 20 - 1) >= 0
-              ? Math.ceil((progress * 100) / 20 - 1)
-              : 0
+          let currentProgress = Math.ceil((progress * 100) / 20 - 1) >= 0 ? Math.ceil((progress * 100) / 20 - 1) : 0
           $('.cell__slides').css('height', `${cellSlides[3].offsetHeight}px`)
           cellBullets.removeClass('active')
           cellBullets.eq(currentProgress).addClass('active')
@@ -397,10 +360,7 @@ $(document).ready(function () {
           }
           if (isCellSlideAnimating) return
           isCellSlideAnimating = true
-          $('.cell__slides').css(
-            'height',
-            `${cellSlides[index].offsetHeight + 1}px`
-          )
+          $('.cell__slides').css('height', `${cellSlides[index].offsetHeight + 1}px`)
           cellSlideCounter = index + 1
           $('.cell__wrapper-current').text(cellSlideCounter)
 
@@ -452,7 +412,7 @@ $(document).ready(function () {
           }
         })
       })
-
+      // Handle swipes on slides
       $('.cell__slides').on('touchstart', handleTouchStart)
       $('.cell__slides').on('touchmove', handleTouchMove)
 
@@ -467,20 +427,22 @@ $(document).ready(function () {
           let nextSlide
           let nextBullet
           if (direction === 'right') {
-            nextSlide = currentSlide.next() ?? null
-            nextBullet = currentBullet.next() ?? null
+            nextSlide = currentSlide.next().length !== 0 ? currentSlide.next() : null
+            nextBullet = currentBullet.next().length !== 0 ? currentBullet.next() : null
           } else {
-            nextSlide = currentSlide.prev() ?? null
-            nextBullet = currentBullet.prev() ?? null
+            nextSlide = currentSlide.prev().length !== 0 ? currentSlide.prev() : null
+            nextBullet = currentBullet.prev().length !== 0 ? currentBullet.prev() : null
           }
 
-          if (nextSlide && nextBullet) {
+          console.warn('nextBullet[0]: ', nextBullet)
+          console.warn('nextSlide[0]: ', nextSlide)
+          if (!nextSlide && !nextBullet) {
+            console.warn('nextSlide and nextBullet are undefined!')
+            isCellSlideAnimating = false
+          } else {
             cellSlideCounter = Number(nextBullet.data('number')) + 1
             $('.cell__wrapper-current').text(cellSlideCounter)
-            $('.cell__slides').css(
-              'height',
-              `${nextSlide[0].offsetHeight + 1}px`
-            )
+            $('.cell__slides').css('height', `${nextSlide[0].offsetHeight + 1}px`)
 
             currentSlide.removeClass('active')
             gsap.to(currentSlide, {
@@ -527,7 +489,6 @@ $(document).ready(function () {
               nextBullet.addClass('active')
             }, 300)
           }
-          return false
         }
         return false
       }
@@ -556,8 +517,10 @@ $(document).ready(function () {
         if (Math.abs(xDiff) > Math.abs(yDiff)) {
           if (xDiff > 0) {
             swipeSlide('right')
+            console.log('swipe to right')
           } else {
             swipeSlide('left')
+            console.log('swipe to left')
           }
         } else {
           if (yDiff > 0) {
@@ -678,10 +641,7 @@ $(document).ready(function () {
           {
             x: (index) => {
               const marginRight = 10
-              return (
-                -$('.advantages__slider-item').outerWidth() * index -
-                (index === 0 ? 0 : marginRight * index)
-              )
+              return -$('.advantages__slider-item').outerWidth() * index - (index === 0 ? 0 : marginRight * index)
             },
             ease: CustomEase.create(
               'custom',
@@ -731,12 +691,8 @@ $(document).ready(function () {
         advantagesSlider.slick('unslick')
       }
       advantagesSlider.slick({
-        nextArrow: $(
-          '.advantages__slider-controls--desktop .advantages__slider-button--next'
-        ),
-        prevArrow: $(
-          '.advantages__slider-controls--desktop .advantages__slider-button--prev'
-        ),
+        nextArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--next'),
+        prevArrow: $('.advantages__slider-controls--desktop .advantages__slider-button--prev'),
         infinite: false,
         adaptiveHeight: true,
         draggable: false,
@@ -757,12 +713,8 @@ $(document).ready(function () {
         if (!advantagesSlider.hasClass('slick-initialized')) {
           isReinitializedOnMobile = true
           advantagesSlider.slick({
-            nextArrow: $(
-              '.advantages__slider-controls--mobile .advantages__slider-button--next'
-            ),
-            prevArrow: $(
-              '.advantages__slider-controls--mobile .advantages__slider-button--prev'
-            ),
+            nextArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--next'),
+            prevArrow: $('.advantages__slider-controls--mobile .advantages__slider-button--prev'),
             infinite: false,
             adaptiveHeight: true,
             swipe: true,
@@ -1079,12 +1031,8 @@ $(document).ready(function () {
     }
 
     testimonialsSlider.slick({
-      nextArrow: $(
-        '.testimonials__controls--desktop .testimonials__controls-button--next'
-      ),
-      prevArrow: $(
-        '.testimonials__controls--desktop .testimonials__controls-button--prev'
-      ),
+      nextArrow: $('.testimonials__controls--desktop .testimonials__controls-button--next'),
+      prevArrow: $('.testimonials__controls--desktop .testimonials__controls-button--prev'),
       infinite: true,
       speed: 1000,
       adaptiveHeight: true,
@@ -1097,12 +1045,8 @@ $(document).ready(function () {
         {
           breakpoint: 769,
           settings: {
-            nextArrow: $(
-              '.testimonials__controls--mobile .testimonials__controls-button--next'
-            ),
-            prevArrow: $(
-              '.testimonials__controls--mobile .testimonials__controls-button--prev'
-            ),
+            nextArrow: $('.testimonials__controls--mobile .testimonials__controls-button--next'),
+            prevArrow: $('.testimonials__controls--mobile .testimonials__controls-button--prev'),
             centerMode: false,
             infinite: false,
             slidesToShow: 1,

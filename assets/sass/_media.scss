@@ -703,6 +703,12 @@ $x-small: 420px;
 
 @media screen and (max-width: $small) {
   .modal {
+    $self: &;
+    &[id='thank-you-modal'] {
+      #{$self}__title {
+        font-size: 34px;
+      }
+    }
     &__body {
       max-width: calc(100% - 32px);
       overflow: auto;
@@ -876,10 +882,20 @@ $x-small: 420px;
   }
 }
 
-@media screen and (max-width: $x-small) {
+// fix of first screen media query
+
+@media screen and (max-width: 485px) {
   .hero {
     &__information {
       margin-bottom: 32px;
+      gap: 350px;
+    }
+  }
+}
+
+@media screen and (max-width: $x-small) {
+  .hero {
+    &__information {
       gap: 250px;
     }
     &__links {
