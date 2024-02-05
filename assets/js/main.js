@@ -779,7 +779,6 @@ $(document).ready(function () {
         trigger: '.discovery',
         start: 'top bottom',
         toggleActions: 'play pause resume reset',
-        markers: true,
       })
     }
   }
