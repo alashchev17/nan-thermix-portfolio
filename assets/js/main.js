@@ -511,8 +511,8 @@ $(document).ready(function () {
     if ($(window).width() >= 1024) {
       systemTl = gsap.timeline({
         defaults: {
-          duration: 1,
-          // ease: 'power3.out',
+          duration: 0.7,
+          ease: 'power3.out',
         },
       })
       systemTl
@@ -565,7 +565,6 @@ $(document).ready(function () {
         trigger: '.system',
         start: 'top bottom',
         toggleActions: 'play pause resume reset',
-        markers: true,
       })
     } else {
       // Mobile animation
@@ -758,12 +757,9 @@ $(document).ready(function () {
       ScrollTrigger.create({
         animation: discoveryTl,
         trigger: '.discovery',
-        start: 'top bottom',
+        start: 'top center',
         toggleActions: 'play pause resume reset',
-        // end: () => `+=${$('.discovery').height() - $(window).height()}`,
-        // pin: true,
-        // scrub: 1.5,
-        // pinSpacing: false,
+        markers: true,
       })
     }
   }
@@ -976,7 +972,7 @@ $(document).ready(function () {
         animation: testimonialsTl,
         trigger: '.testimonials',
         start: 'top bottom',
-        once: true,
+        toggleActions: 'play pause resume reset',
       })
     } else {
       // Mobile animation
@@ -1047,8 +1043,7 @@ $(document).ready(function () {
       animation: footerTl,
       trigger: '.footer',
       start: 'top bottom',
-      once: true,
-      // markers: true,
+      toggleActions: 'play pause resume reset',
     })
   }
 
