@@ -252,95 +252,72 @@ $(document).ready(function () {
   // Cell section Variables
   const cellBullets = $('.cell__bullets-item')
   const cellSlides = $('.cell__slides-item')
+  const cellSliderContainer = $('.cell__slides')
   let cellSlideCounter = 1
   let isCellSlideAnimating = false // only for mobile
 
   function initCellAnimate() {
     if ($(window).width() >= 1024) {
+      gsap.set('.cell', {
+        minHeight: $('.cell__image').height(),
+      })
+      // cell slider
+      cellSliderContainer.slick({
+        dots: false,
+        prevArrow: $('.cell__slides-button--prev'),
+        nextArrow: $('.cell__slides-button--next'),
+        speed: 1000,
+        slidesToShow: 1,
+        draggable: false,
+        slidesToScroll: 1,
+        infinite: false,
+        adaptiveHeight: true,
+      })
+
+      cellBullets.on('click', function () {
+        let slideIndex = $(this).data('slide-index')
+        cellSliderContainer.slick('slickGoTo', slideIndex)
+      })
+
+      // Update bullet class on slide change
+      cellSliderContainer.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        cellBullets.removeClass('active')
+        $('.cell__bullets-item[data-number="' + nextSlide + '"]').addClass('active')
+      })
       let cellTl = gsap.timeline({
         defaults: { duration: 1 },
       })
 
-      cellTl.from('.cell__wrapper', {
-        x: 100,
-        opacity: 0,
-      })
+      cellTl
+        .from('.cell__image', {
+          x: '-100%',
+          opacity: 0,
+        })
+        .from('.cell__wrapper', {
+          x: 100,
+          opacity: 0,
+        })
+        .from(
+          '.cell__slides-item',
+          {
+            y: '100%',
+          },
+          '<95%'
+        )
+        .from(
+          '.cell__slides-controls',
+          {
+            x: -100,
+            opacity: 0,
+          },
+          '>'
+        )
 
-      cellSlides.each(function (index, item) {
-        $('.cell__slides').css('height', `${item.offsetHeight}px`)
-        if (index == 4) {
-          cellTl
-            .fromTo(
-              item,
-              {
-                y: '100%',
-                opacity: 0,
-              },
-              {
-                y: 0,
-                opacity: 1,
-              },
-              '<'
-            )
-            .fromTo(
-              '.cell__button',
-              {
-                opacity: 0,
-              },
-              {
-                opacity: 1,
-              },
-              '>'
-            )
-          return
-        }
-        cellTl
-          .fromTo(
-            item,
-            {
-              y: '100%',
-              opacity: 0,
-            },
-            {
-              y: 0,
-              opacity: 1,
-            },
-            '<'
-          )
-          .to(
-            item,
-            {
-              opacity: 0,
-            },
-            '>'
-          )
-          .fromTo(
-            cellSlides[index + 1],
-            {
-              y: '100%',
-              opacity: 0,
-            },
-            {
-              y: 0,
-              opacity: 1,
-            },
-            '>'
-          )
-      })
       ScrollTrigger.create({
         animation: cellTl,
         trigger: '.cell',
-        start: 'top 10%',
-        end: () => `+=${$('.cell').height() - $(window).height()}`,
-        scrub: 1.5,
-        pin: true,
-        pinSpacing: false,
-        onUpdate: ({ progress }) => {
-          let currentProgress = Math.ceil((progress * 100) / 20 - 1) >= 0 ? Math.ceil((progress * 100) / 20 - 1) : 0
-          $('.cell__slides').css('height', `${cellSlides[3].offsetHeight}px`)
-          cellBullets.removeClass('active')
-          cellBullets.eq(currentProgress).addClass('active')
-        },
+        start: 'top bottom',
+        toggleActions: 'play pause resume reset',
       })
     } else {
       // Mobile
@@ -529,80 +506,70 @@ $(document).ready(function () {
   }
 
   // System
-  let systemTl
-  if ($(window).width() >= 768) {
-    systemTl = gsap.timeline({
-      defaults: {
-        duration: 1,
-        // ease: 'power3.out',
-      },
-    })
-    systemTl
-      .from('.system__title', {
-        opacity: 0,
-        y: '100%',
-      })
-      .from(
-        '.system__descr',
-        {
-          opacity: 0,
-        },
-        '>20%'
-      )
-      .from(
-        '.system__text',
-        {
-          opacity: 0,
-          rotation: 10,
-          y: '100%',
-        },
-        '>10%'
-      )
-      .from(
-        '.system__label',
-        {
-          opacity: 0,
-        },
-        '>10%'
-      )
-      .from(
-        '.system__container--second .system__column--left',
-        {
-          opacity: 0,
-          x: '-100%',
-        },
-        '>10%'
-      )
-      .from(
-        '.system__container--second .system__column--right .system__information',
-        {
-          opacity: 0,
-          x: '100%',
-          stagger: 0.6,
-        },
-        '>10%'
-      )
+  function initSystemAnimation() {
+    let systemTl
     if ($(window).width() >= 1024) {
+      systemTl = gsap.timeline({
+        defaults: {
+          duration: 1,
+          // ease: 'power3.out',
+        },
+      })
+      systemTl
+        .from('.system__title', {
+          opacity: 0,
+          y: '100%',
+        })
+        .from(
+          '.system__descr',
+          {
+            opacity: 0,
+          },
+          '>20%'
+        )
+        .from(
+          '.system__text',
+          {
+            opacity: 0,
+            rotation: 10,
+            y: '100%',
+          },
+          '>10%'
+        )
+        .from(
+          '.system__label',
+          {
+            opacity: 0,
+          },
+          '>10%'
+        )
+        .from(
+          '.system__container--second .system__column--left',
+          {
+            opacity: 0,
+            x: '-100%',
+          },
+          '>10%'
+        )
+        .from(
+          '.system__container--second .system__column--right .system__information',
+          {
+            opacity: 0,
+            x: '100%',
+            stagger: 0.6,
+          },
+          '>10%'
+        )
       ScrollTrigger.create({
         animation: systemTl,
         trigger: '.system',
-        start: 'top 15%',
-        end: () => `+=${$('.system').height() - $(window).height()}`,
-        pin: true,
-        scrub: 1.2,
-        pinSpacing: false,
+        start: 'top bottom',
+        toggleActions: 'play pause resume reset',
+        markers: true,
       })
     } else {
-      ScrollTrigger.create({
-        animation: systemTl,
-        trigger: '.system',
-        start: 'center 10%',
-        end: 'bottom top',
-        once: true,
-      })
+      // Mobile animation
     }
-  } else {
-    // Mobile animation
   }
 
   // Advantages
@@ -668,7 +635,7 @@ $(document).ready(function () {
         animation: advantagesTl,
         trigger: '.advantages',
         start: 'top bottom',
-        once: true,
+        toggleActions: 'play pause resume reset',
       })
     } else {
       // Mobile animation
@@ -791,11 +758,12 @@ $(document).ready(function () {
       ScrollTrigger.create({
         animation: discoveryTl,
         trigger: '.discovery',
-        start: 'top 10%',
-        end: () => `+=${$('.discovery').height() - $(window).height()}`,
-        pin: true,
-        scrub: 1.5,
-        pinSpacing: false,
+        start: 'top bottom',
+        toggleActions: 'play pause resume reset',
+        // end: () => `+=${$('.discovery').height() - $(window).height()}`,
+        // pin: true,
+        // scrub: 1.5,
+        // pinSpacing: false,
       })
     }
   }
@@ -1089,6 +1057,7 @@ $(document).ready(function () {
     fixHeader()
     sloganAnimate()
     initCellAnimate()
+    initSystemAnimation()
     initAdvantagesAnimation()
     initDiscoveryAnimation()
     initializeTestimonialsSlider()
