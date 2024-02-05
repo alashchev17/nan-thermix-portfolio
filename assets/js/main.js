@@ -203,9 +203,7 @@ $(document).ready(function () {
     e.preventDefault()
     var anchor = $(this)
     if (anchor.attr('href') !== '#') {
-      const scrollTriggeredSections = ['cell', 'system']
-      let offsetTop = 0
-      // Checking if current anchor contains some of links in scrollTriggeredSections array and if not - setting offset of 90
+      const offsetTop = $('.header').height() + 32
       function smoothAnimate() {
         $('html')
           .stop()
@@ -215,9 +213,6 @@ $(document).ready(function () {
             },
             1200
           )
-      }
-      if (!scrollTriggeredSections.some((item) => anchor[0].href.includes(item))) {
-        offsetTop = 90
       }
       if (menu.hasClass('active')) {
         setTimeout(() => {
@@ -285,18 +280,26 @@ $(document).ready(function () {
         $('.cell__bullets-item[data-number="' + nextSlide + '"]').addClass('active')
       })
       let cellTl = gsap.timeline({
-        defaults: { duration: 1 },
+        defaults: {
+          duration: 1,
+          ease: 'power3.out',
+        },
       })
 
       cellTl
         .from('.cell__image', {
           x: '-100%',
           opacity: 0,
+          delay: 0.5,
         })
-        .from('.cell__wrapper', {
-          x: 100,
-          opacity: 0,
-        })
+        .from(
+          '.cell__wrapper',
+          {
+            x: 100,
+            opacity: 0,
+          },
+          '>'
+        )
         .from(
           '.cell__slides-item',
           {
@@ -512,6 +515,7 @@ $(document).ready(function () {
       systemTl = gsap.timeline({
         defaults: {
           duration: 0.7,
+          delay: 0.5,
           ease: 'power3.out',
         },
       })
@@ -576,13 +580,14 @@ $(document).ready(function () {
   function initAdvantagesAnimation() {
     if ($(window).width() > 1024) {
       let advantagesTl = gsap.timeline({
-        defaults: { duration: 1, ease: 'power3.out' },
+        defaults: { duration: 0.7, ease: 'power3.out' },
       })
 
       advantagesTl
         .from('.advantages__title', {
           x: '-100%',
           opacity: 0,
+          delay: 0.5,
         })
         .from(
           '.advantages__link',
@@ -717,30 +722,41 @@ $(document).ready(function () {
   function initDiscoveryAnimation() {
     if ($(window).width() >= 1024) {
       let discoveryTl = gsap.timeline({
-        defaults: {
-          duration: 1,
-        },
+        defaults: { duration: 0.7, ease: 'power3.out' },
       })
 
       discoveryTl
         .from('.discovery__title--first', {
           x: '-100%',
           opacity: 0,
+          delay: 0.5,
         })
-        .from('.discovery__title-word', {
-          x: '-100%',
-          opacity: 0,
-        })
-        .from('.discovery__title-wrapper', {
-          rotation: -10,
-          y: '100%',
-          opacity: 0,
-        })
-        .from('.discovery__text', {
-          rotation: -10,
-          y: '100%',
-          opacity: 0,
-        })
+        .from(
+          '.discovery__title-word',
+          {
+            x: '-100%',
+            opacity: 0,
+          },
+          '<70%'
+        )
+        .from(
+          '.discovery__title-wrapper',
+          {
+            rotation: -10,
+            y: '100%',
+            opacity: 0,
+          },
+          '>50%'
+        )
+        .from(
+          '.discovery__text',
+          {
+            rotation: -10,
+            y: '100%',
+            opacity: 0,
+          },
+          '>50%'
+        )
         .from(
           '.discovery__descr',
           {
@@ -750,14 +766,18 @@ $(document).ready(function () {
           },
           '<'
         )
-        .from('.discovery__year', {
-          opacity: 0,
-        })
+        .from(
+          '.discovery__year',
+          {
+            opacity: 0,
+          },
+          '>50%'
+        )
 
       ScrollTrigger.create({
         animation: discoveryTl,
         trigger: '.discovery',
-        start: 'top center',
+        start: 'top bottom',
         toggleActions: 'play pause resume reset',
         markers: true,
       })
@@ -904,11 +924,16 @@ $(document).ready(function () {
   function initTestimonialsAnimation() {
     if ($(window).width() > 768) {
       let testimonialsTl = gsap.timeline({
-        defaults: { duration: 1, ease: 'power3.out' },
+        defaults: { duration: 0.7, ease: 'power3.out' },
         onComplete: () => {
           gsap.set('.testimonials__slider-item', { clearProps: true })
           gsap.set('.testimonials__slider-item', {
             transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out',
+          })
+        },
+        onStart: () => {
+          gsap.set('.testimonials__slider-item', {
+            transition: 'none',
           })
         },
       })
@@ -917,6 +942,7 @@ $(document).ready(function () {
         .from('.testimonials__title', {
           y: '100%',
           opacity: 0,
+          delay: 0.5,
         })
         .fromTo(
           '.testimonials__slider-item.slick-center',
@@ -999,6 +1025,7 @@ $(document).ready(function () {
       centerMode: true,
       slidesToShow: testimonialsSlides.length - 1,
       slidesToScroll: 1,
+      touchMove: true,
       responsive: [
         {
           breakpoint: 769,
@@ -1014,15 +1041,17 @@ $(document).ready(function () {
         },
       ],
     })
+    // clickHandler to switch slides clicking on inactive one
+    testimonialsSlider.find('.slick-slide').on('click', function () {
+      let index = $(this).data('slick-index')
+      testimonialsSlider.slick('slickGoTo', index)
+    })
   }
 
   // Footer
   function initFooterAnimation() {
     let footerTl = gsap.timeline({
-      defaults: {
-        duration: 1,
-        ease: 'power3.out',
-      },
+      defaults: { duration: 0.7, ease: 'power3.out' },
     })
 
     footerTl
@@ -1063,5 +1092,4 @@ $(document).ready(function () {
   $(document).on('scroll', () => {
     fixHeader()
   })
-  // $(window).on('resize', destroyAndinitializeAdvantagesSlider)
 })

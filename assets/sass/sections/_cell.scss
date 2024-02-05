@@ -1,8 +1,6 @@
 .cell {
   padding-top: 45px;
   position: relative;
-  // min-height: 500vh;
-  // overflow-x: hidden;
   &__image {
     position: absolute;
     top: 16px;
@@ -16,7 +14,6 @@
     position: relative;
     max-width: 60%;
     margin-left: auto;
-    // overflow: hidden;
   }
   &__wrapper {
     display: flex;
@@ -85,7 +82,6 @@
       opacity: 0;
       transition: opacity 0.7s ease-in-out;
       &.slick-active {
-        transition: opacity 0.3s ease-in-out;
         transition-delay: 1s;
         opacity: 1;
       }
