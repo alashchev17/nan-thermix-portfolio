@@ -515,13 +515,13 @@ $(document).ready(function () {
       systemTl = gsap.timeline({
         defaults: {
           duration: 0.7,
-          delay: 0.5,
           ease: 'power3.out',
         },
       })
       systemTl
         .from('.system__title', {
           opacity: 0,
+          delay: 0.5,
           y: '100%',
         })
         .from(
