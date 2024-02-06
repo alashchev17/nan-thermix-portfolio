@@ -1,5 +1,6 @@
 .testimonials {
   $self: &;
+  margin-top: var(--section-offset);
   padding: 95px 0;
   background-color: var(--white);
   border-top-left-radius: 30px;

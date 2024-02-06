@@ -997,7 +997,8 @@ $(document).ready(function () {
         animation: testimonialsTl,
         trigger: '.testimonials',
         start: 'top bottom',
-        toggleActions: 'play pause resume reset',
+        // toggleActions: 'play pause resume reset',
+        once: true,
       })
     } else {
       // Mobile animation

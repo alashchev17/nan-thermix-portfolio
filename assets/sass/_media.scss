@@ -7,41 +7,6 @@ $medium: 768px;
 $small: 576px;
 $x-small: 420px;
 
-// fix of animation triggers heights
-// @media screen and (max-height: 900px) {
-//   // .cell {
-//   //   min-height: 250vh;
-//   // }
-//   // .system {
-//   //   min-height: 210vh;
-//   // }
-// }
-// @media screen and (max-height: 800px) {
-//   // .cell {
-//   //   min-height: 250vh;
-//   // }
-//   // .system {
-//   //   min-height: 230vh;
-//   // }
-//   .discovery {
-//     min-height: 200vh;
-//   }
-//   .advantages {
-//     padding: 160px 0;
-//   }
-// }
-// @media screen and (max-height: 700px) {
-//   //   .cell {
-//   //     min-height: 250vh;
-//   //   }
-//   .system {
-//     min-height: 240vh;
-//   }
-//   .discovery {
-//     min-height: 200vh;
-//   }
-// }
-
 @media screen and (max-width: $extra-extra-large) {
   .container {
     padding-left: 16px !important;
@@ -163,6 +128,9 @@ $x-small: 420px;
 }
 
 @media screen and (max-width: $extra-large) {
+  :root {
+    --section-offset: 90px;
+  }
   .modal {
     &__body {
       max-width: 80%;
@@ -231,7 +199,6 @@ $x-small: 420px;
   .system {
     $self: &;
     min-height: unset;
-    padding: 160px 0 110px 0;
     gap: 50px;
     &__container {
       &:nth-child(1) {
@@ -264,7 +231,6 @@ $x-small: 420px;
   }
   .advantages {
     $self: &;
-    padding-bottom: 55px;
     &__title {
       font-size: 100px;
     }
@@ -286,7 +252,6 @@ $x-small: 420px;
     }
   }
   .discovery {
-    // min-height: unset;
     &__title {
       font-size: 64px;
       letter-spacing: -1.8px;
@@ -539,6 +504,7 @@ $x-small: 420px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: unset;
     &__image {
       position: static;
       max-width: 100%;
@@ -557,7 +523,6 @@ $x-small: 420px;
   .system {
     $self: &;
     gap: 32px;
-    padding: 110px 0 90px 0;
     &__image {
       max-width: 50%;
     }
@@ -575,7 +540,6 @@ $x-small: 420px;
     }
   }
   .advantages {
-    padding-bottom: 45px;
     &__header {
       align-items: center;
       margin-bottom: 32px;
@@ -598,7 +562,6 @@ $x-small: 420px;
     }
   }
   .discovery {
-    padding: 45px 0;
     &__slogan {
       display: flex;
       flex-direction: column;
@@ -664,7 +627,6 @@ $x-small: 420px;
     }
   }
   .applications {
-    padding: 45px 0;
     &__slider {
       &-item {
         width: 260px;
@@ -824,8 +786,6 @@ $x-small: 420px;
     }
   }
   .cell {
-    padding-top: unset;
-    padding-bottom: 45px;
     &__wrapper {
       margin-bottom: 16px;
     }
@@ -836,7 +796,6 @@ $x-small: 420px;
     }
   }
   .system {
-    padding: 45px 0;
     &__title {
       font-size: 46px;
       font-style: normal;
@@ -879,7 +838,6 @@ $x-small: 420px;
     }
   }
   .advantages {
-    padding: 45px 0;
     &__button {
       width: 100%;
       .button__content {

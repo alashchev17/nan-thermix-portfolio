@@ -18,22 +18,10 @@
   --orange: #ff6d04;
   --gradient-1: linear-gradient(90deg, var(--blue), var(--green));
   --gradient-2: linear-gradient(90deg, #86ceff, #f0d7be);
-  --gradient-3: linear-gradient(
-    90deg,
-    #1987d2 -28.22%,
-    #40bbd6 27.97%,
-    #f0d7be 97.26%
-  );
-  --warm-gradient-1: linear-gradient(
-    86deg,
-    var(--orange) 3.26%,
-    #171276 94.46%
-  );
-  --warm-gradient-4: linear-gradient(
-    271deg,
-    #94bbdf 4.19%,
-    var(--orange) 92.61%
-  );
+  --gradient-3: linear-gradient(90deg, #1987d2 -28.22%, #40bbd6 27.97%, #f0d7be 97.26%);
+  --warm-gradient-1: linear-gradient(86deg, var(--orange) 3.26%, #171276 94.46%);
+  --warm-gradient-4: linear-gradient(271deg, #94bbdf 4.19%, var(--orange) 92.61%);
+  --section-offset: 80px;
 }
 
 body {

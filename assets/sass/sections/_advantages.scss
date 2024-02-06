@@ -1,7 +1,6 @@
 .advantages {
-  margin-top: 180px;
+  margin-top: var(--section-offset);
   overflow: hidden;
-  padding-bottom: 165px;
   &__header {
     display: flex;
     justify-content: space-between;

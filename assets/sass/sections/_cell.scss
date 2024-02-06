@@ -1,5 +1,5 @@
 .cell {
-  padding-top: 45px;
+  margin-top: var(--section-offset);
   position: relative;
   &__image {
     position: absolute;
