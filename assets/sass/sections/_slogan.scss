@@ -1,28 +1,38 @@
 .slogan {
   width: 100%;
   overflow: hidden;
-  padding: 60px 0 86px 0;
+  padding: 60px 0 0 0;
   &__title {
     color: #d2d2d2;
     font-family: 'Aileron', sans-serif;
-    white-space: nowrap;
-    font-size: 135px;
+    display: flex;
+    flex-direction: column;
+    font-size: 110px;
     font-style: normal;
-    font-weight: 350;
-    line-height: 100%; /* 135px */
+    font-weight: 300;
+    line-height: 90%; /* 99px */
     letter-spacing: -5.4px;
   }
   &__biology {
     position: relative;
     display: inline-block;
     color: var(--black);
-    padding: 5px 20px 15px 20px;
+    text-transform: capitalize;
+    padding: 0px 30px 2px 30px;
     line-height: 110px;
     $border: 5px;
     background: #f2f2f2;
     background-clip: padding-box; /* !importanté */
     border: solid $border transparent; /* !importanté */
     border-radius: 1000px;
+    &-text {
+      padding: 0 7px;
+      background: var(--warm-gradient-4);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-repeat: no-repeat;
+    }
     &:before {
       content: '';
       position: absolute;
@@ -37,6 +47,23 @@
     }
   }
   &__world {
-    color: var(--orange);
+    text-transform: capitalize;
+    color: var(--gray);
+  }
+  &__block {
+    &--right {
+      text-align: right;
+    }
+    &--left {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: flex-start;
+    }
+  }
+  &__item {
+    &--right {
+      text-align: right;
+    }
   }
 }

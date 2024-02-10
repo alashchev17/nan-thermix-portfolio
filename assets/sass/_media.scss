@@ -65,6 +65,20 @@ $x-small: 420px;
 }
 
 @media screen and (max-width: $medium-large) {
+  .slogan {
+    &__title {
+      font-size: 90px;
+    }
+    &__biology {
+      padding: 0px 20px 2px 20px;
+      line-height: 90px;
+    }
+    &__block {
+      &--left {
+        gap: 15px;
+      }
+    }
+  }
   .system {
     $self: &;
     &__image {
@@ -163,10 +177,29 @@ $x-small: 420px;
     }
   }
   .cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: unset;
+    &__image {
+      position: static;
+      max-width: 100%;
+      width: 100%;
+      height: 100vw;
+    }
+    &__wrapper {
+      &-counter {
+        display: inline-block;
+      }
+    }
+    &__content {
+      max-width: 100%;
+    }
     &__slides {
       position: relative !important;
       z-index: 1;
       transition: height 0.3s ease-in-out;
+      max-width: 100%;
       &-item {
         position: absolute;
         top: 0;
@@ -241,6 +274,7 @@ $x-small: 420px;
       display: inline-block;
     }
     &__slider {
+      margin-bottom: unset;
       &-controls {
         &--mobile {
           display: flex;
@@ -294,6 +328,13 @@ $x-small: 420px;
 }
 
 @media screen and (max-width: 960px) {
+  .slogan {
+    &__block {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
   .footer {
     &__partners {
       &--desktop {
@@ -472,25 +513,32 @@ $x-small: 420px;
     }
   }
   .slogan {
-    padding: 0;
-    &__container {
-      padding: 0 16px;
-    }
+    padding: 60px 0 0 0;
     &__title {
       display: flex;
       font-size: 75px;
       flex-direction: column;
       letter-spacing: -2.4px;
     }
+    &__block {
+      gap: 7px;
+    }
     &__biology {
       $border: 3px;
       border: $border solid transparent;
       line-height: 100%;
       padding: 0 16px;
+      &-text {
+        text-transform: initial;
+        color: var(--black);
+        -webkit-text-fill-color: unset;
+        background: unset;
+      }
       &::before {
         margin: -$border;
       }
     }
+
     &__item {
       &--left {
         text-align: left;
@@ -499,25 +547,9 @@ $x-small: 420px;
         text-align: right;
       }
     }
-  }
-  .cell {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: unset;
-    &__image {
-      position: static;
-      max-width: 100%;
-      width: 100%;
-      height: 100vw;
-    }
-    &__wrapper {
-      &-counter {
-        display: inline-block;
-      }
-    }
-    &__content {
-      max-width: 100%;
+    &__world {
+      text-transform: initial;
+      color: var(--orange);
     }
   }
   .system {
@@ -779,7 +811,7 @@ $x-small: 420px;
       $border: 2px;
       border: $border solid transparent;
       line-height: 90%;
-      padding: 0 16px;
+      padding: 0 6px;
       &::before {
         margin: -$border;
       }

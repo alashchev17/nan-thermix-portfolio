@@ -13,6 +13,10 @@ $(document).ready(function () {
 
   gsap.ticker.lagSmoothing(0)
 
+  // Constants
+
+  const SCRUB_OFFSET = 4000
+
   // Preloader
 
   function preloaderAnimationFinish() {
@@ -252,75 +256,33 @@ $(document).ready(function () {
   let isCellSlideAnimating = false // only for mobile
 
   function initCellAnimate() {
-    if ($(window).width() >= 1024) {
-      gsap.set('.cell', {
-        minHeight: $('.cell__image').height(),
-      })
-      // cell slider
-      cellSliderContainer.slick({
-        dots: false,
-        prevArrow: $('.cell__slides-button--prev'),
-        nextArrow: $('.cell__slides-button--next'),
-        speed: 1000,
-        slidesToShow: 1,
-        draggable: false,
-        slidesToScroll: 1,
-        infinite: false,
-        adaptiveHeight: true,
-      })
+    if ($(window).width() > 1024) {
+      // gsap.set('.cell', {
+      //   minHeight: $('.cell__image').height(),
+      // })
 
-      cellBullets.on('click', function () {
-        let slideIndex = $(this).data('slide-index')
-        cellSliderContainer.slick('slickGoTo', slideIndex)
-      })
-
-      // Update bullet class on slide change
-      cellSliderContainer.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-        cellBullets.removeClass('active')
-        $('.cell__bullets-item[data-number="' + nextSlide + '"]').addClass('active')
-      })
       let cellTl = gsap.timeline({
         defaults: {
-          duration: 1,
-          ease: 'power3.out',
+          ease: 'none',
         },
       })
 
-      cellTl
-        .from('.cell__image', {
-          x: '-100%',
-          opacity: 0,
-          delay: 0.5,
-        })
-        .from(
-          '.cell__wrapper',
-          {
-            x: 100,
-            opacity: 0,
-          },
-          '>'
-        )
-        .from(
-          '.cell__slides-item',
-          {
-            y: '100%',
-          },
-          '<95%'
-        )
-        .from(
-          '.cell__slides-controls',
-          {
-            x: -100,
-            opacity: 0,
-          },
-          '>'
-        )
+      cellTl.to(cellSliderContainer, {
+        x: () => `-${cellSliderContainer[0].scrollWidth - cellSliderContainer[0].clientWidth}px`,
+      })
 
       ScrollTrigger.create({
         animation: cellTl,
         trigger: '.cell',
-        start: 'top bottom',
-        toggleActions: 'play pause resume reset',
+        start: 'top 15%',
+        end: () => `+=${SCRUB_OFFSET}px 90%`,
+        pin: true,
+        scrub: true,
+        onUpdate: ({ progress }) => {
+          let currentProgress = Math.ceil((progress * 100) / 20 - 1) >= 0 ? Math.ceil((progress * 100) / 20 - 1) : 0
+          cellBullets.removeClass('active')
+          cellBullets.eq(currentProgress).addClass('active')
+        },
       })
     } else {
       // Mobile
@@ -580,14 +542,14 @@ $(document).ready(function () {
   function initAdvantagesAnimation() {
     if ($(window).width() > 1024) {
       let advantagesTl = gsap.timeline({
-        defaults: { duration: 0.7, ease: 'power3.out' },
+        defaults: { duration: 1, ease: 'power3.out' },
       })
 
       advantagesTl
         .from('.advantages__title', {
           x: '-100%',
           opacity: 0,
-          delay: 0.5,
+          delay: 0.3,
         })
         .from(
           '.advantages__link',
@@ -599,7 +561,7 @@ $(document).ready(function () {
         )
         .from('.advantages__slider-item', {
           opacity: 0,
-          duration: 0.6,
+          duration: 0.3,
         })
         .from(
           '.advantages__slider-item',
@@ -613,9 +575,8 @@ $(document).ready(function () {
               'M0,0 C0.083,0.294 0.161,0.712 0.418,0.964 0.458,1.003 0.528,1.025 0.619,1.015 0.849,0.989 0.863,1 1,1 '
             ),
             stagger: false,
-            duration: 1.5,
           },
-          '>25%'
+          '>75%'
         )
         .fromTo(
           '.advantages__slider-item',
@@ -1077,16 +1038,16 @@ $(document).ready(function () {
   }
 
   $(window).on('load', () => {
-    setTimeout(preloaderAnimationFinish, 2500)
+    setTimeout(preloaderAnimationFinish, 1)
     fixHeader()
-    sloganAnimate()
+    // sloganAnimate()
     initCellAnimate()
-    initSystemAnimation()
+    // initSystemAnimation()
     initAdvantagesAnimation()
-    initDiscoveryAnimation()
+    // initDiscoveryAnimation()
     initializeTestimonialsSlider()
-    initTestimonialsAnimation()
-    initFooterAnimation()
+    // initTestimonialsAnimation()
+    // initFooterAnimation()
   })
 
   $(document).on('scroll', () => {

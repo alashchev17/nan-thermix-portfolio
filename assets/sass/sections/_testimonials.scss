@@ -157,7 +157,7 @@
       border-radius: 20px;
       max-width: 453px;
       background: radial-gradient(60.31% 88.28% at 96.63% 20.86%, rgba(100, 172, 237, 0.2) 0%, rgba(241, 233, 223, 0.2) 100%), #f6f7f8;
-      // transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
       opacity: 0.2;
       transform: scale(0.785);
       &.slick-center {

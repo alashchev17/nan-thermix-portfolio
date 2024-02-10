@@ -1,25 +1,31 @@
 .cell {
   margin-top: var(--section-offset);
   position: relative;
+  display: flex;
+  align-items: flex-start;
   &__image {
-    position: absolute;
-    top: 16px;
-    left: 0;
+    // position: absolute;
+    // top: 16px;
+    // left: 0;
     width: 40%;
     max-width: 40%;
     height: 40vw;
     object-fit: cover;
   }
+  &__container {
+    overflow: hidden;
+  }
   &__content {
     position: relative;
-    max-width: 60%;
-    margin-left: auto;
+    max-width: 100%;
+    // margin-left: auto;
+    // overflow: hidden;
   }
   &__wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
     &-counter {
       display: none;
       font-size: 18px;
@@ -72,18 +78,23 @@
     }
   }
   &__slides {
-    position: static !important;
     transition: height 0.3s ease-in-out;
+    display: flex;
+    // align-items: center;
+    // 828px | 60% width
+    gap: 200px;
+    flex-wrap: nowrap;
+    max-width: 85%;
     &-item {
       display: flex !important;
       flex-direction: column;
       align-items: flex-start;
-      gap: 25px;
-      opacity: 0;
+      gap: 30px;
+      flex-shrink: 0;
+      width: 100%;
       transition: opacity 0.7s ease-in-out;
-      &.slick-active {
-        transition-delay: 1s;
-        opacity: 1;
+      &:last-child {
+        // padding-right: 10%;
       }
     }
     &-controls {
