@@ -775,7 +775,6 @@ $(document).ready(function () {
     setTimeout(preloaderAnimationFinish, 2500)
     fixHeader()
     initCellAnimate()
-    initAdvantagesAnimation()
     initializeTestimonialsSlider()
   })
 
