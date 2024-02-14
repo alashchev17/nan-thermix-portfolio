@@ -1,6 +1,7 @@
 # System files
 .vscode
 .DS_Store
+.idea
 # Dev dependencies folders/files
 node_modules
 package.json
