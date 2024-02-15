@@ -1275,7 +1275,6 @@ input {
 .cell {
   padding-top: 45px;
   position: relative;
-  min-height: 500vh;
   padding-bottom: 20px;
 }
 .cell__image {
