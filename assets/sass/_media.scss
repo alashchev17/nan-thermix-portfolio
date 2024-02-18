@@ -237,6 +237,9 @@ $x-small: 420px;
     &__link {
       display: none;
     }
+    &__slider {
+      margin-bottom: unset;
+    }
     &__button {
       display: inline-block;
     }
