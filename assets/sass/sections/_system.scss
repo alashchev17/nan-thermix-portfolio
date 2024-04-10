@@ -131,4 +131,380 @@
       }
     }
   }
+  &__interactive {
+    max-width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    &-wrapper {
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        z-index: 10;
+        background-color: rgba(#6a6667, 0);
+        transition: background-color 0.3s ease-in-out;
+      }
+      &.active {
+        &::before {
+          background-color: rgba(#6a6667, 75%);
+        }
+      }
+      &.mobile {
+        display: none;
+      }
+    }
+    &-objects {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 15;
+      &.mobile {
+        display: none;
+      }
+    }
+    &-object {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      &.mobile {
+        display: none;
+      }
+      &.active {
+        opacity: 1;
+      }
+    }
+    &-tooltips {
+      $self: &;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      &.mobile {
+        position: static;
+        top: unset;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+    &-tooltip {
+      $self: &;
+      position: absolute;
+      transition: opacity 0.3s ease-in-out;
+      z-index: 15;
+      transform-origin: top left;
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        transition: opacity 0.3s ease-in-out;
+        pointer-events: none; // необходимо, чтобы не перекрывать <rect> при наведении
+      }
+      &.hidden {
+        #{$self}-body {
+          opacity: 0;
+        }
+        #{$self}-circle {
+          --accent-color: #ff6d04;
+          --accent-color-second: rgba(255, 109, 4, 0.15);
+          --accent-color-third: rgba(255, 109, 4, 0.25);
+        }
+        &::before {
+          opacity: 0;
+        }
+      }
+
+      &-body {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        color: var(--white);
+        transition: opacity 0.3s ease-in-out;
+        cursor: pointer;
+        &--right {
+          align-items: flex-end;
+        }
+      }
+      &-info {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        max-width: 225px;
+        gap: 6px;
+      }
+      &-title {
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 31px;
+        letter-spacing: -0.84px;
+        &--subbed {
+          display: inline-flex;
+          align-items: flex-start;
+          gap: 6.5px;
+          &::after {
+            content: 'TM';
+            display: inline-block;
+            font-size: 11.5px;
+            line-height: 110%;
+            letter-spacing: -0.345px;
+            margin-top: 5px;
+            font-weight: 400;
+          }
+        }
+      }
+      &-subtitle {
+        font-size: 18px;
+        line-height: 110%;
+      }
+      &-circle {
+        --accent-color: #ffffff;
+        --accent-color-second: rgba(255, 255, 255, 0.15);
+        --accent-color-third: rgba(255, 255, 255, 0.25);
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid var(--accent-color-second);
+        background-color: var(--accent-color-second);
+        position: relative;
+        z-index: 10;
+        transition: all 0.3s ease-in-out;
+        &::before {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 20px;
+          height: 20px;
+          background-color: var(--accent-color-third);
+          border: 1px solid var(--accent-color-third);
+          border-radius: 50%;
+          z-index: 11;
+          transition: all 0.3s ease-in-out;
+          animation: circlesAnimation 2s ease-in-out infinite;
+        }
+        &::after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 10px;
+          height: 10px;
+          background-color: var(--accent-color);
+          border: 1px solid var(--accent-color);
+          border-radius: 50%;
+          z-index: 12;
+          transition: all 0.3s ease-in-out;
+          animation: circlesAnimation 2s ease-in-out infinite;
+        }
+      }
+      // прописываем координаты для каждого объекта тултипа
+      // dht
+      &[data-object='1'] {
+        bottom: 5.5%;
+        left: 24%;
+        transform-origin: bottom left;
+        #{$self}-circle {
+          position: absolute;
+          bottom: 283px;
+          left: 370px;
+        }
+        &::before {
+          top: -375%;
+          left: 75%;
+          width: 285.7px;
+          height: 248.69px;
+          background-image: url('../images/system/line-3.svg');
+        }
+      }
+      // pipette holder
+      &[data-object='2'] {
+        top: 26.5%;
+        left: 58%;
+        #{$self}-circle {
+          position: absolute;
+          top: 122px;
+          right: 163px;
+        }
+        &::before {
+          top: 10px;
+          left: -14px;
+          width: 55.7px;
+          height: 125.06px;
+          background-image: url('../images/system/line-4.svg');
+        }
+      }
+      // software
+      &[data-object='3'] {
+        top: 20%;
+        left: 3%;
+        #{$self}-circle {
+          position: absolute;
+          top: 200px;
+          left: 55px;
+        }
+        &::before {
+          top: 12px;
+          right: -13px;
+          width: 85px;
+          height: 200px;
+          background-image: url('../images/system/line-1.svg');
+        }
+      }
+      // plug&play
+      &[data-object='4'] {
+        top: 21%;
+        right: 6.5%;
+        transform-origin: top right;
+        #{$self}-circle {
+          position: absolute;
+          top: 180px;
+          right: 225px;
+        }
+        &::before {
+          top: 10px;
+          left: -15.5px;
+          width: 55.7px;
+          height: 181.13px;
+          background-image: url('../images/system/line-5.svg');
+        }
+      }
+      // micromanipulator
+      &[data-object='5'] {
+        bottom: 5.5%;
+        right: 10%;
+        transform-origin: bottom right;
+        #{$self}-circle {
+          position: absolute;
+          bottom: 80px;
+          right: 405px;
+        }
+        &::before {
+          top: -32px;
+          right: 178px;
+          width: 238.63px;
+          height: 48.16px;
+          background-image: url('../images/system/line-6.svg');
+        }
+      }
+      // microscope
+      &[data-object='6'] {
+        top: 9.5%;
+        left: 58%;
+        #{$self}-circle {
+          position: absolute;
+          top: 5px;
+          right: 272px;
+        }
+        &::before {
+          top: -25px;
+          left: -106.8%;
+          width: 154.3px;
+          height: 47.75px;
+          background-image: url('../images/system/line-2.svg');
+        }
+      }
+
+      &.mobile {
+        position: static;
+        display: flex;
+        gap: 10px;
+        #{$self}-body {
+          margin-top: 2.5px;
+          flex-direction: column-reverse;
+          color: var(--black);
+          gap: 8px;
+          cursor: unset;
+          &--right {
+            align-items: flex-start;
+          }
+        }
+        #{$self}-info {
+          max-width: unset;
+        }
+        #{$self}-title {
+          font-size: 26px;
+          line-height: 100%;
+        }
+        #{$self}-circle {
+          display: none;
+        }
+        .label {
+          border: 0.72px solid #d2d2d2;
+        }
+        &::before {
+          content: attr(data-object);
+          pointer-events: all;
+          position: static;
+          width: 30px;
+          height: 30px;
+          background: unset;
+          background-color: var(--orange);
+          color: var(--white);
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          font-family: 'Suisse Intl', sans-serif;
+          font-weight: 450;
+          font-size: 16px;
+          line-height: 115%;
+          letter-spacing: -0.16px;
+          border-radius: 50%;
+        }
+      }
+    }
+    &-image {
+      position: relative;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      object-fit: cover;
+      width: 100%;
+      max-width: 100%;
+      height: 100%;
+      &.mobile {
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 32px;
+      }
+    }
+  }
+}
+
+@keyframes circlesAnimation {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  35% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+  }
 }

@@ -4,7 +4,7 @@
   padding: 60px 0 86px 0;
   &__title {
     color: #d2d2d2;
-    font-family: "Aileron", sans-serif;
+    font-family: 'Aileron', sans-serif;
     white-space: nowrap;
     font-size: 135px;
     font-style: normal;
@@ -24,7 +24,7 @@
     border: solid $border transparent; /* !importanté */
     border-radius: 1000px;
     &:before {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       right: 0;
